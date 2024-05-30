@@ -1,17 +1,20 @@
-import { lazy, Suspense } from "react";
+// import { lazy, Suspense } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import ButtonIcon from "../components/ButtonIcon";
-import { HiArrowSmLeft } from "react-icons/hi";
+// import ButtonIcon from "../components/ButtonIcon";
+// import { HiArrowSmLeft } from "react-icons/hi";
+// import Modal from "../components/Modal";
+// import BookPlaceholder from "../features/books/BookPlaceholder";
 // import Heading from "../components/Heading";
 
-const Spinner = lazy(() => import("../components/Spinner"));
-const BookDetail = lazy(() => import("../features/books/BookDetail"));
-const Main = lazy(() => import("../components/Main"));
+// const Spinner = lazy(() => import("../components/Spinner"));
+// const BookDetail = lazy(() => import("../features/books/BookDetail"));
+// const Main = lazy(() => import("../components/Main"));
+import Main from "../components/Main";
 
 function HomePage() {
   return (
-    <div className="grid grid-cols-6 grid-rows-6 gap-x-6 h-screen bg-gray-200/75 p-6">
+    <div className="grid grid-cols-3 grid-rows-6 gap-x-6 h-screen bg-gray-200/75 p-6 md:grid-cols-6">
       <Sidebar />
 
       <main className="col-span-6 row-span-full overflow-y-scroll">
@@ -24,11 +27,14 @@ function HomePage() {
           </div> */}
           {/* <Heading /> */}
           {/* <Suspense fallback={<Spinner />}> */}
-          <BookDetail />
+          {/* <BookDetail /> */}
           {/* </Suspense> */}
+          {/* <Modal /> */}
+
+          {/* <BookPlaceholder /> */}
 
           {/* <Suspense fallback={<Spinner />}> */}
-          {/* <Main /> */}
+          <Main />
           {/* </Suspense> */}
         </div>
       </main>

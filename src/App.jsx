@@ -14,7 +14,6 @@ const router = createBrowserRouter([
     children: [{ path: "book/:bookId", element: <BookPage /> }],
   },
 ]);
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

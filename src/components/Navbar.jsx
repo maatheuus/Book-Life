@@ -6,8 +6,12 @@ import {
 } from "react-icons/ri";
 
 import ButtonIcon from "./ButtonIcon";
+import { useState } from "react";
+import Modal from "./Modal";
 
 function Navbar() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <nav className="flex flex-col justify-between h-4/5">
       <ul className="list-none flex flex-col items-start gap-6">
@@ -17,8 +21,9 @@ function Navbar() {
           </ButtonIcon>
         </li>
         <li>
-          <ButtonIcon variation="primary">
+          <ButtonIcon variation="primary" onClick={() => setShowModal(true)}>
             <RiSearch2Line className="w-6 h-6" /> <span>Search</span>
+            <Modal showModal={showModal} setShowModal={setShowModal} />
           </ButtonIcon>
         </li>
         <li>

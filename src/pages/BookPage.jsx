@@ -1,6 +1,4 @@
-import { lazy } from "react";
-const BookDetail = lazy(() => import("../features/books/BookDetail"));
-
+import BookDetail from "../features/books/BookDetail";
 function BookPage() {
   return <BookDetail />;
 }
