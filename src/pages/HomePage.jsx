@@ -1,11 +1,12 @@
 import { lazy, Suspense } from "react";
-
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import ButtonIcon from "../components/ButtonIcon";
+import { HiArrowSmLeft } from "react-icons/hi";
 // import Heading from "../components/Heading";
 
 const Spinner = lazy(() => import("../components/Spinner"));
-const BookDetail = lazy(() => import("../components/BookDetail"));
+const BookDetail = lazy(() => import("../features/books/BookDetail"));
 const Main = lazy(() => import("../components/Main"));
 
 function HomePage() {
@@ -16,14 +17,19 @@ function HomePage() {
       <main className="col-span-6 row-span-full overflow-y-scroll">
         <div className="h-full">
           <Header />
+          {/* <div className="bg-primary rounded-full left-0 top-2 w-5 h-5 my-2">
+            <ButtonIcon to="/" replace variation="primary">
+              <HiArrowSmLeft className="w-5 h-5 text-white" />
+            </ButtonIcon>
+          </div> */}
           {/* <Heading /> */}
-          <Suspense fallback={<Spinner />}>
-            <BookDetail />
-          </Suspense>
+          {/* <Suspense fallback={<Spinner />}> */}
+          <BookDetail />
+          {/* </Suspense> */}
 
-          <Suspense fallback={<Spinner />}>
-            <Main />
-          </Suspense>
+          {/* <Suspense fallback={<Spinner />}> */}
+          {/* <Main /> */}
+          {/* </Suspense> */}
         </div>
       </main>
     </div>

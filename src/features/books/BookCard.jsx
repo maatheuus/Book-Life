@@ -4,7 +4,7 @@ import {
   HiOutlineShoppingCart,
   HiOutlineHeart,
 } from "react-icons/hi2";
-import image from "../assets/images/img-test.jpeg";
+import image from "../../assets/images/img-test.jpeg";
 
 function BookCard() {
   return (

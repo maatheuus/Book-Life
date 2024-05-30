@@ -10,7 +10,7 @@ import ButtonIcon from "./ButtonIcon";
 function Navbar() {
   return (
     <nav className="flex flex-col justify-between h-4/5">
-      <ul className="list-none flex flex-col items-start gap-2">
+      <ul className="list-none flex flex-col items-start gap-6">
         <li>
           <ButtonIcon variation="primary">
             <RiHomeLine className="w-6 h-6" /> <span>Home</span>
