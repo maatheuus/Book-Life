@@ -1,12 +1,16 @@
+import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 
 function Sidebar() {
   return (
-    <aside className="bg-stone-50 flex flex-col justify-between items-center gap-16 py-6 col-start-1 col-end-2 row-span-full rounded-lg">
+    <aside className="bg-stone-50 flex-col justify-between items-center gap-16 py-6 rounded-xl max-w-64 col-start-1 col-end-2 row-start-1 row-end-6 hidden md:flex">
       <div className="">
-        <h1 className="text-2xl font-satisfy font-semibold text-primary">
+        <Link
+          to="/"
+          className="text-2xl font-satisfy font-semibold text-primary"
+        >
           Book Life
-        </h1>
+        </Link>
       </div>
       <Navbar />
       <footer>

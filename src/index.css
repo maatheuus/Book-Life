@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+@layer utilities {
   @font-face {
     font-family: "Mona Sans";
     src: url("Mona-Sans.woff2") format("woff2 supports variations");
@@ -10,7 +10,31 @@
     font-stretch: 75% 125%;
   }
 
+  @keyframes toggleMenu {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-44px);
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+      visibility: visible;
+    }
+  }
+
   body {
     font-family: "Mona Sans";
+  }
+
+  .btn-radio {
+    @apply w-4 h-4 appearance-none border border-gray-400 rounded-full p-1 focus:border-none;
+  }
+
+  .btn-gradient {
+    background-image: radial-gradient(white 35%, orange 65%);
   }
 }

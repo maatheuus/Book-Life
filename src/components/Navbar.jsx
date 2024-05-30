@@ -1,25 +1,35 @@
-import { BookMarked } from "lucide-react";
-import { Search } from "lucide-react";
-import { Home } from "lucide-react";
+import {
+  RiSearch2Line,
+  RiHeart3Line,
+  RiStarLine,
+  RiHomeLine,
+} from "react-icons/ri";
+
+import ButtonIcon from "./ButtonIcon";
 
 function Navbar() {
   return (
     <nav className="flex flex-col justify-between h-4/5">
       <ul className="list-none flex flex-col items-start gap-2">
         <li>
-          <button className="flex gap-x-4 text-sm hover:text-primary transition-colors duration-200">
-            <Home /> <span>Home</span>
-          </button>
+          <ButtonIcon variation="primary">
+            <RiHomeLine className="w-6 h-6" /> <span>Home</span>
+          </ButtonIcon>
         </li>
         <li>
-          <button className="flex gap-x-4 text-sm hover:text-primary transition-colors duration-200">
-            <Search /> <span>Search</span>
-          </button>
+          <ButtonIcon variation="primary">
+            <RiSearch2Line className="w-6 h-6" /> <span>Search</span>
+          </ButtonIcon>
         </li>
         <li>
-          <button className="flex gap-x-4 text-sm hover:text-primary transition-colors duration-200">
-            <BookMarked /> <span>My Books</span>
-          </button>
+          <ButtonIcon variation="primary">
+            <RiStarLine className="w-6 h-6" /> <span>Avaliations</span>
+          </ButtonIcon>
+        </li>
+        <li>
+          <ButtonIcon variation="primary">
+            <RiHeart3Line className="w-6 h-6" /> <span>My Books</span>
+          </ButtonIcon>
         </li>
       </ul>
     </nav>

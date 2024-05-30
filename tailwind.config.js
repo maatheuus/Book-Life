@@ -20,9 +20,16 @@ export default {
       colors: {
         primary: "#f28738",
         secondary: "#ffa15e",
+        "gray-primary": "#848484",
       },
       fontFamily: {
         satisfy: ["Satisfy", "cursive", "serif"],
+      },
+      animation: {
+        toggle: "toggleMenu 300ms ease",
+      },
+      boxShadow: {
+        img: "0px 4px 3px -2px rgb(0,0,0)",
       },
     },
   },
