@@ -1,3 +1,4 @@
+import { useState, lazy } from "react";
 import {
   RiSearch2Line,
   RiHeart3Line,
@@ -5,9 +6,11 @@ import {
   RiHomeLine,
 } from "react-icons/ri";
 
+const Modal = lazy(() => import("./Modal"));
+// import Modal from "./Modal";
+
 import ButtonIcon from "./ButtonIcon";
-import { useState } from "react";
-import Modal from "./Modal";
+import { Suspense } from "react";
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
@@ -23,7 +26,9 @@ function Navbar() {
         <li>
           <ButtonIcon variation="primary" onClick={() => setShowModal(true)}>
             <RiSearch2Line className="w-6 h-6" /> <span>Search</span>
-            <Modal showModal={showModal} setShowModal={setShowModal} />
+            <Suspense>
+              <Modal showModal={showModal} setShowModal={setShowModal} />
+            </Suspense>
           </ButtonIcon>
         </li>
         <li>

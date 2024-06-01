@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useRef } from "react";
 import { RiSearch2Line } from "react-icons/ri";
 import ButtonIcon from "../components/ButtonIcon";
 import { useSetQuery } from "../features/books/useSetQuery";
 
 function SearchForm({ className, children }) {
-  const [value, setValue] = useState();
-  const { setQuerySearch, book } = useSetQuery();
+  const searchBook = useRef();
+
+  const { searchBooks } = useSetQuery();
 
   function handleSearch(e) {
     e.preventDefault();
-    setQuerySearch(value);
-    console.log(book);
+
+    searchBooks({ query: searchBook.current.value });
   }
 
   return (
@@ -27,8 +28,7 @@ function SearchForm({ className, children }) {
             className="block w-full py-2 ps-10 text-base text-gray-primary border border-gray-primary/40 rounded-lg focus:ring-gray-400 outline-none focus:border-gray-400 "
             id="default-search"
             type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            ref={searchBook}
           />
         </div>
       </div>

@@ -1,10 +1,27 @@
 import { useState } from "react";
-import { getBook } from "../../services/apiBooks";
+import { getBook as getBookApi } from "../../services/apiBooks";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import axios from "axios";
 
 export function useSetQuery() {
-  const [querySearch, setQuerySearch] = useState();
+  const queryClient = useQueryClient();
 
-  const book = getBook(querySearch);
+  const apiKey = import.meta.env.VITE_API_KEY;
 
-  return { setQuerySearch, book };
+  const { isLoading: isSearching, mutate: searchBooks } = useMutation({
+    mutationFn: ({ query }) =>
+      axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=${query}:keyes&key=${apiKey}`
+      ),
+    onSuccess: (data) => {
+      queryClient.setQueryData(["books"], data);
+      queryClient.invalidateQueries({
+        queryKey: ["books"],
+      });
+    },
+    onError: (err) => console.log(err),
+  });
+
+  return { isSearching, searchBooks };
 }

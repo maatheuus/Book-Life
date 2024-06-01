@@ -3,7 +3,6 @@ module.exports = {
   env: { browser: true, es2020: true },
   extends: [
     "eslint:recommended",
-    "plugin:node/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
@@ -14,6 +13,7 @@ module.exports = {
   plugins: ["react-refresh"],
   rules: {
     "react/jsx-no-target-blank": "off",
+    "no-unused-vars": 1,
     "react/prop-types": "off",
     "react-refresh/only-export-components": [
       "warn",
@@ -21,3 +21,4 @@ module.exports = {
     ],
   },
 };
+// "plugin:node/recommended",
