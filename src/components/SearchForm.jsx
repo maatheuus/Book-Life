@@ -1,16 +1,14 @@
 import { useRef } from "react";
 import { RiSearch2Line } from "react-icons/ri";
-import ButtonIcon from "../components/ButtonIcon";
 import { useSetQuery } from "../features/books/useSetQuery";
+import ButtonIcon from "../components/ButtonIcon";
 
 function SearchForm({ className, children }) {
   const searchBook = useRef();
-
   const { searchBooks } = useSetQuery();
 
   function handleSearch(e) {
     e.preventDefault();
-
     searchBooks({ query: searchBook.current.value });
   }
 

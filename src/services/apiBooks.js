@@ -1,24 +1,25 @@
 import axios from "axios";
-import { useState } from "react";
 
-// export async function getBook({ query }) {
-export async function getBook() {
+export async function searchBook(query, page) {
   const apiKey = import.meta.env.VITE_API_KEY;
+  //www.googleapis.com/books/v1/users/1112223334445556677/bookshelves/3/volumes?startIndex=10&maxResults=20&key=yourAPIKey
+  console.log(page);
+  let url = "https://www.googleapis.com/books/v1/volumes";
+  if (query) {
+    url += `?q=${query}:keyes&key=${apiKey}`;
+  }
+  if (page) {
+    url += `?startIndex={index}&maxResults={max}&key==${apiKey}`;
+  }
 
-  // const res = await fetch(
-  //   `https://www.googleapis.com/books/v1/volumes?q=${query}:keyes&key=${apiKey}`
-  //   // { signal }
-  // );
-  // if (!res.ok) throw new Error("Something went wrong");
-
-  // const data = await res.json();
-  // return axios
-  //   .get(
-  //     // `https://www.googleapis.com/books/v1/volumes?q=${query}:keyes&key=${apiKey}`
-  //     `https://www.googleapis.com/books/v1/volumes?q=malcolmx:keyes&key=${apiKey}`
-  //   )
-  //   .then((res) => res.data)
-  //   .catch((err) => {
-  //     throw new Error(err.message);
-  //   });
+  return axios
+    .get(url)
+    .then((res) => {
+      if (res.status !== 200)
+        throw new Error("Could not fetch the data, please try again!");
+      return res.data;
+    })
+    .catch((err) => {
+      throw new Error(err.message);
+    });
 }

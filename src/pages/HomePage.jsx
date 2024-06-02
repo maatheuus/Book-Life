@@ -1,4 +1,4 @@
-// import { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 // import ButtonIcon from "../components/ButtonIcon";
@@ -9,8 +9,8 @@ import Header from "../components/Header";
 
 // const Spinner = lazy(() => import("../components/Spinner"));
 // const BookDetail = lazy(() => import("../features/books/BookDetail"));
-// const Main = lazy(() => import("../components/Main"));
-import Main from "../components/Main";
+const Main = lazy(() => import("../components/Main"));
+// import Main from "../components/Main";
 
 function HomePage() {
   return (
@@ -33,9 +33,9 @@ function HomePage() {
 
           {/* <BookPlaceholder /> */}
 
-          {/* <Suspense fallback={<Spinner />}> */}
-          <Main />
-          {/* </Suspense> */}
+          <Suspense fallback={<p>Loading...</p>}>
+            <Main />
+          </Suspense>
         </div>
       </main>
     </div>
