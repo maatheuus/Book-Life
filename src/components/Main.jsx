@@ -11,14 +11,14 @@ const BookPlaceholderCard = lazy(() =>
 const Heading = lazy(() => import("./Heading"));
 
 function Main() {
-  const { data, isFetching: isLoading } = useBook();
+  const { data, isLoading, isFetching } = useBook();
   let books = [];
 
   if (data?.items) {
     books = data.items;
   }
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <Suspense>
         <BookPlaceholderCard />
@@ -32,7 +32,7 @@ function Main() {
       <Suspense fallback={<Spinner />}>
         {books.length !== 0 && <Heading totalResults={data.totalItems} />}
       </Suspense>
-      <ul className="list-none flex flex-wrap gap-5">
+      <ul className="list-none flex flex-wrap gap-5" key={Math.random() * 2}>
         {books.length !== 0 &&
           books.map((entry) => {
             const book = entry.volumeInfo;

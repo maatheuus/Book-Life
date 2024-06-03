@@ -7,17 +7,27 @@ export function useBook() {
   const [query, setQuery] = useState();
   const [searchParams] = useSearchParams();
 
+  // FILTER
+  const filterValue = searchParams.get("filterBy");
+  const filter =
+    !filterValue || filterValue === "noFilter" ? null : filterValue;
+
+  // SORT
+  const sortValue = searchParams.get("sortBy");
+  const sortBy = !sortValue || sortValue === "noSort" ? null : sortValue;
+
   // PAGINATION
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
-  const { data, isFetching } = useQuery({
+  const { data, isFetching, isLoading } = useQuery({
     enabled: !!query,
-    queryKey: ["books", page],
-    queryFn: () => searchBook(query, page),
+    queryKey: ["books", page, filter, sortBy],
+    queryFn: () => searchBook(query, page, filter, sortBy),
     refetchOnWindowFocus: false,
     staleTime: 1000 * 5 * 2,
     refetchOnMount: false,
     keepPreviousData: true,
   });
-  return { data, setQuery, isFetching };
+
+  return { isLoading, isFetching, data, setQuery };
 }

@@ -2,6 +2,7 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 import ButtonIcon from "./ButtonIcon";
 import Button from "./Button";
+import { useEffect } from "react";
 
 const PAGE_SIZE = 10;
 function Pagination({ totalResults }) {
@@ -14,7 +15,6 @@ function Pagination({ totalResults }) {
 
   function nextPage() {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
-
     searchParams.set("page", next);
     setSearchParams(searchParams);
   }
@@ -32,6 +32,12 @@ function Pagination({ totalResults }) {
     searchParams.set("page", goToPage);
     setSearchParams(searchParams);
   }
+
+  const treeDots = (
+    <span className="flex items-center px-4 py-2 text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
+      ...
+    </span>
+  );
 
   if (pageCount <= 1) return null;
 
@@ -79,6 +85,7 @@ function Pagination({ totalResults }) {
             className="isolate inline-flex -space-x-px rounded-md shadow-sm"
             aria-label="Pagination"
           >
+            {/* if currentPage is NOT the first one, show previous button */}
             {currentPage !== 1 && (
               <ButtonIcon
                 onClick={previousPage}
@@ -89,6 +96,7 @@ function Pagination({ totalResults }) {
               </ButtonIcon>
             )}
 
+            {/* if currentPage is greater than 20, show PAGE 1 button */}
             {currentPage > 20 && (
               <>
                 <Button
@@ -100,9 +108,7 @@ function Pagination({ totalResults }) {
                   1
                 </Button>
 
-                <span className="flex items-center px-4 py-2 text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
-                  ...
-                </span>
+                {treeDots}
               </>
             )}
 
@@ -113,20 +119,17 @@ function Pagination({ totalResults }) {
               {currentPage}
             </span>
 
-            {currentPage === pageCount ? (
-              ""
-            ) : (
+            {/* if currentPage is the LAST page, show NOTHING */}
+            {currentPage === pageCount ? null : (
               <span className="relative items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 md:inline-flex">
                 {currentPage + 1}
               </span>
             )}
 
+            {/* if currentPage is FAR from the last one, show the LAST PAGE button */}
             {currentPage <= pageCount - 10 && (
               <>
-                <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
-                  ...
-                </span>
-
+                {treeDots}
                 <Button
                   onClick={() => goTo("last")}
                   className={`ring-1 px-2 py-2 rounded-md ring-gray-300 ${
@@ -138,6 +141,7 @@ function Pagination({ totalResults }) {
               </>
             )}
 
+            {/* if currentPage is NOT in the last, show next button */}
             {currentPage !== pageCount && (
               <ButtonIcon
                 onClick={nextPage}
