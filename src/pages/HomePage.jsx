@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
+import { useParams, Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+
 // import ButtonIcon from "../components/ButtonIcon";
 // import { HiArrowSmLeft } from "react-icons/hi";
 // import Modal from "../components/Modal";
@@ -10,9 +12,9 @@ import Header from "../components/Header";
 // const Spinner = lazy(() => import("../components/Spinner"));
 // const BookDetail = lazy(() => import("../features/books/BookDetail"));
 const Main = lazy(() => import("../components/Main"));
-// import Main from "../components/Main";
 
 function HomePage() {
+  const params = useParams();
   return (
     <div className="grid grid-cols-3 grid-rows-6 gap-x-6 h-screen bg-gray-200/75 p-6 md:grid-cols-6">
       <Sidebar />
@@ -31,10 +33,12 @@ function HomePage() {
           {/* </Suspense> */}
           {/* <Modal /> */}
 
-          {/* <BookPlaceholder /> */}
+          <Suspense fallback={<p>Loading...</p>}>
+            {params.bookId === undefined && <Main />}
+          </Suspense>
 
           <Suspense fallback={<p>Loading...</p>}>
-            <Main />
+            <Outlet />
           </Suspense>
         </div>
       </main>

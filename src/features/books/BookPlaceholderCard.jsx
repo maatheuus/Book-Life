@@ -1,4 +1,4 @@
-function BookPlaceholder() {
+function BookPlaceholderCard() {
   return (
     <div className="flex">
       <div className="animate-pulse relative max-w-sm min-w-[180px] bg-stone-50/80 rounded-xl px-4 py-3">
@@ -23,4 +23,4 @@ function BookPlaceholder() {
   );
 }
 
-export default BookPlaceholder;
+export default BookPlaceholderCard;

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bar-width: 20px;
+  --bar-height: 4px;
+  --hamburguer-gap: 4px;
+  --hamburguer-height: calc(var(--bar-height) * 3 + var(--hamburguer-gap) * 2);
+  --x-width: calc(var(--hamburguer-height) * 1.41421356237);
+}
+
 @layer utilities {
   @font-face {
     font-family: "Mona Sans";
@@ -14,14 +22,14 @@
     0% {
       opacity: 0;
       visibility: hidden;
-      transform: translateY(-44px);
+      transform: translateX(-10rem);
     }
     50% {
       opacity: 0.5;
     }
     100% {
       opacity: 1;
-      transform: translateY(0px);
+      transform: translateX(0px);
       visibility: visible;
     }
   }
@@ -32,6 +40,48 @@
 
   .btn-radio {
     @apply w-4 h-4 appearance-none border border-gray-400 rounded-full p-1 focus:border-none;
+  }
+
+  .hamburguer-menu {
+    @apply flex flex-col gap-[var(--hamburguer-gap)] bg-stone-50 px-4 py-2 items-center rounded-full w-auto cursor-pointer absolute left-8 top-8 z-[100px];
+  }
+
+  .hamburguer-menu::before,
+  .hamburguer-menu::after,
+  .hamburguer-menu input {
+    content: "";
+    @apply w-[var(--bar-width)] h-[var(--bar-height)] bg-primary rounded-full transition-all duration-300 ease-in-out;
+    transform-origin: left center;
+  }
+  .hamburguer-menu input {
+    @apply appearance-none p-0 m-0 outline-none pointer-events-none checked:opacity-0 checked:w-0;
+  }
+
+  .hamburguer-menu:has(input:checked)::before {
+    @apply rotate-45 bg-stone-50;
+    width: var(--x-width);
+    translate: 0 calc(var(--bar-height) / -2);
+  }
+  .hamburguer-menu:has(input:checked)::after {
+    @apply -rotate-45 bg-stone-50;
+    width: var(--x-width);
+    translate: 0 calc(var(--bar-height) / 2);
+  }
+
+  .hamburguer-menu:has(input:checked) {
+    @apply pr-1.5 bg-primary;
+  }
+
+  .aside {
+    @apply bg-stone-50 py-6 h-full rounded-lg w-36 border-2 shadow-sm flex flex-col items-center justify-end;
+  }
+
+  .hamburguer-menu:has(:not(input:checked)) + .aside {
+    @apply opacity-0 invisible -translate-x-40;
+  }
+
+  .hamburguer-menu:has(input:checked) + .aside {
+    @apply animate-toggle duration-200 ease-in-out;
   }
 
   .btn-gradient {

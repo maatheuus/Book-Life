@@ -22,17 +22,16 @@ export async function searchBook(query, page, filter, sortBy) {
     url += `&orderBy=${sortBy}`;
   }
 
-  return (
-    axios
-      .get(url + urlApi)
-      // .get()
-      .then((res) => {
-        if (res.status !== 200)
-          throw new Error("Could not fetch the data, please try again!");
-        return res.data;
-      })
-      .catch((err) => {
-        throw new Error(err.message);
-      })
-  );
+  console.log(url);
+
+  return axios
+    .get(url + urlApi)
+    .then((res) => {
+      if (res.status !== 200)
+        throw new Error("Could not fetch the data, please try again!");
+      return res.data;
+    })
+    .catch((err) => {
+      throw new Error(err.message);
+    });
 }

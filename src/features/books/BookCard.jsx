@@ -5,21 +5,29 @@ import {
   HiOutlineHeart,
 } from "react-icons/hi2";
 import imgNotFound from "../../assets/images/image-not-found.jpeg";
+import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 
-function BookCard({ title, image = imgNotFound, averageRating, price }) {
+function BookCard({ title, image = imgNotFound, averageRating, price, id }) {
+  const navigate = useNavigate();
   return (
-    <li className="relative max-w-sm  min-w-[184px] bg-white shadow-md rounded-xl px-4 py-3">
+    <li className="relative max-w-sm min-w-[184px] bg-white shadow-sm rounded-xl px-4 py-3 transition duration-300 hover:scale-105 hover:shadow-md">
       <div>
         <div className="flex">
           <button className="ml-auto bg-white rounded-full p-2 cursor-pointer text-stone-800 hover:animate-pulse">
             <HiOutlineHeart className="justify-end hover:text-primary" />
           </button>
         </div>
-        <div className="w-40 overflow-hidden object-fill">
-          <img
-            className="h-40 shadow-img rounded-sm w-full overflow-x-hidden object-cover rotate-6 scale-75"
-            src={image}
-          />
+        <div>
+          <Button
+            className="block w-40 overflow-hidden object-fill"
+            onClick={() => navigate(`book/${id}`, { replace: true })}
+          >
+            <img
+              className="h-40 shadow-img rounded-sm w-full overflow-x-hidden object-cover rotate-6 scale-75"
+              src={image}
+            />
+          </Button>
         </div>
       </div>
       <div className="flex items-center justify-center mt-2">
