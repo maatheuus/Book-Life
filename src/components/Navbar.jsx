@@ -1,19 +1,15 @@
-import { useState, lazy } from "react";
-import {
-  RiSearch2Line,
-  RiHeart3Line,
-  RiStarLine,
-  RiHomeLine,
-} from "react-icons/ri";
+import { useState, lazy, Suspense } from "react";
+import { RiSearch2Line, RiHeart3Line, RiHomeLine } from "react-icons/ri";
+import ButtonIcon from "./ButtonIcon";
 
 const Modal = lazy(() => import("./Modal"));
-// import Modal from "./Modal";
-
-import ButtonIcon from "./ButtonIcon";
-import { Suspense } from "react";
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
+
+  function handleShowModal() {
+    setShowModal(!showModal);
+  }
 
   return (
     <nav className="flex flex-col justify-between h-4/5">
@@ -24,16 +20,8 @@ function Navbar() {
           </ButtonIcon>
         </li>
         <li>
-          <ButtonIcon variation="primary" onClick={() => setShowModal(true)}>
+          <ButtonIcon variation="primary" onClick={handleShowModal}>
             <RiSearch2Line className="w-6 h-6" /> <span>Search</span>
-            <Suspense>
-              <Modal showModal={showModal} setShowModal={setShowModal} />
-            </Suspense>
-          </ButtonIcon>
-        </li>
-        <li>
-          <ButtonIcon variation="primary">
-            <RiStarLine className="w-6 h-6" /> <span>Avaliations</span>
           </ButtonIcon>
         </li>
         <li>
@@ -42,6 +30,9 @@ function Navbar() {
           </ButtonIcon>
         </li>
       </ul>
+      <Suspense>
+        <Modal showModal={showModal} onClick={handleShowModal} />
+      </Suspense>
     </nav>
   );
 }

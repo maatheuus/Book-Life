@@ -48,6 +48,7 @@ function Main() {
                 title={book.title}
                 image={smallImage}
                 price={price}
+                linkTo={entry.saleInfo.buyLink}
               />
             );
           })}

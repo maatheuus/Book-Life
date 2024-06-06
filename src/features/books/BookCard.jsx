@@ -1,22 +1,46 @@
+import { useNavigate } from "react-router-dom";
 import {
   HiOutlineStar,
   HiStar,
   HiOutlineShoppingCart,
   HiOutlineHeart,
+  HiHeart,
 } from "react-icons/hi2";
 import imgNotFound from "../../assets/images/image-not-found.jpeg";
-import Button from "../../components/Button";
-import { useNavigate } from "react-router-dom";
 
-function BookCard({ title, image = imgNotFound, averageRating, price, id }) {
+import Button from "../../components/Button";
+import ButtonIcon from "../../components/ButtonIcon";
+import { useState } from "react";
+
+function BookCard({
+  title,
+  image = imgNotFound,
+  averageRating,
+  price,
+  linkTo,
+  id,
+}) {
   const navigate = useNavigate();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  function handleBookmark(e) {
+    setIsBookmarked((isSave) => !isSave);
+  }
+
   return (
     <li className="relative max-w-sm min-w-[184px] bg-white shadow-sm rounded-xl px-4 py-3 transition duration-300 hover:scale-105 hover:shadow-md">
       <div>
         <div className="flex">
-          <button className="ml-auto bg-white rounded-full p-2 cursor-pointer text-stone-800 hover:animate-pulse">
-            <HiOutlineHeart className="justify-end hover:text-primary" />
-          </button>
+          <ButtonIcon
+            onClick={() => handleBookmark(id)}
+            className="ml-auto bg-white rounded-full p-2 cursor-pointer text-stone-800 hover:animate-pulse"
+          >
+            {isBookmarked ? (
+              <HiHeart className="fill-primary" />
+            ) : (
+              <HiOutlineHeart className="hover:text-primary" />
+            )}
+          </ButtonIcon>
         </div>
         <div>
           <Button
@@ -48,9 +72,13 @@ function BookCard({ title, image = imgNotFound, averageRating, price, id }) {
         {price !== undefined ? (
           <>
             <span>R$ {price}</span>
-            <button className=" bg-primary text-stone-100 hover:animate-pulse rounded-full p-1">
+            <ButtonIcon
+              to={linkTo}
+              target="_blank"
+              className=" bg-primary text-stone-100 hover:animate-pulse rounded-full p-1"
+            >
               <HiOutlineShoppingCart className="w-4 h-4" />
-            </button>
+            </ButtonIcon>
           </>
         ) : (
           <span>Not for sale</span>

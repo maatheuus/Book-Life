@@ -52,7 +52,7 @@ function BookDetail() {
                     alt="image of the book selected"
                   />
 
-                  <div className="mt-6 ml-6">
+                  <div className="mt-6 ml-6 px-3">
                     <h1 className="text-xl font-extrabold text-stone-800">
                       {book.title}
                     </h1>
@@ -110,6 +110,7 @@ function BookDetail() {
                         <ButtonIcon
                           variation="primary"
                           to={entry.saleInfo.buyLink}
+                          target="_blank"
                         >
                           <HiOutlineShoppingCart className="w-4 h-4" />
                           Add to cart

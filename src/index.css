@@ -42,6 +42,12 @@
     @apply w-4 h-4 appearance-none border border-gray-400 rounded-full p-1 focus:border-none;
   }
 
+  .btn-gradient {
+    background-image: radial-gradient(white 35%, orange 65%);
+  }
+}
+
+@layer utilities {
   .hamburguer-menu {
     @apply flex flex-col gap-[var(--hamburguer-gap)] bg-stone-50 px-4 py-2 items-center rounded-full w-auto cursor-pointer absolute left-8 top-8 z-[100px];
   }
@@ -73,18 +79,14 @@
   }
 
   .aside {
-    @apply bg-stone-50 py-6 h-full rounded-lg w-36 border-2 shadow-sm flex flex-col items-center justify-end;
+    @apply bg-stone-50 py-6 rounded-lg w-44 border-2 shadow-sm flex flex-col items-center justify-end;
   }
 
   .hamburguer-menu:has(:not(input:checked)) + .aside {
-    @apply opacity-0 invisible -translate-x-40;
+    @apply opacity-0 invisible -translate-x-14 duration-200 ease-in-out h-60;
   }
 
   .hamburguer-menu:has(input:checked) + .aside {
-    @apply animate-toggle duration-200 ease-in-out;
-  }
-
-  .btn-gradient {
-    background-image: radial-gradient(white 35%, orange 65%);
+    @apply animate-toggle duration-700 ease-in-out absolute -z-10 h-[26rem];
   }
 }

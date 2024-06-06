@@ -1,30 +1,17 @@
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function Sidebar() {
   return (
     <>
-      <div className="col-start-1 col-end-2 row-start-1 row-end-6 z-50">
+      <div className="w-0 col-span-full row-start-1 z-50 block sm:row-end-6 sm:col-start-1 sm:col-end-1 lg:hidden">
         <label htmlFor="hamburgerMenu" className="hamburguer-menu">
           <input type="checkbox" id="hamburgerMenu" />
         </label>
         <div className="aside">
           <Navbar />
-          <footer>
-            <p className="text-[10px] text-secondary">
-              All the Rights Reserved &#169;
-            </p>
-            <p className="text-[10px] text-secondary">
-              Create and develope by{" "}
-              <a
-                href="linkedin.com/in/matheusmaat/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Matheus.
-              </a>
-            </p>
-          </footer>
+          <Footer />
         </div>
       </div>
 
@@ -38,21 +25,7 @@ function Sidebar() {
           </Link>
         </div>
         <Navbar />
-        <footer>
-          <p className="text-[10px] text-secondary">
-            All the Rights Reserved &#169;
-          </p>
-          <p className="text-[10px] text-secondary">
-            Create and develope by{" "}
-            <a
-              href="linkedin.com/in/matheusmaat/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Matheus.
-            </a>
-          </p>
-        </footer>
+        <Footer />
       </aside>
     </>
   );
