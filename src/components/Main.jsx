@@ -3,6 +3,7 @@ import { useBook } from "../features/books/useBook";
 import Empty from "./Empty";
 import Spinner from "./Spinner";
 import Pagination from "./Pagination";
+import { useUser } from "../features/authentication/useUser";
 
 const BookCard = lazy(() => import("../features/books/BookCard"));
 const BookPlaceholderCard = lazy(() =>
@@ -11,14 +12,15 @@ const BookPlaceholderCard = lazy(() =>
 const Heading = lazy(() => import("./Heading"));
 
 function Main() {
-  const { data, isLoading, isFetching } = useBook();
+  const { data, isLoading } = useBook();
+  const { user } = useUser({ email: "teste@teste.com" });
   let books = [];
 
   if (data?.items) {
     books = data.items;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
       <Suspense>
         <BookPlaceholderCard />

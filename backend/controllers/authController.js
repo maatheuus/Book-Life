@@ -63,6 +63,37 @@ export const login = async (req, res, next) => {
       status: "success",
       token,
       role: "authenticated",
+      user: {
+        name: user.name,
+        email: user.email,
+        created_at: user.createdAt,
+        updated_at: user.updateAt,
+        id: user._id,
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({
+      status: "fail",
+      message: error,
+    });
+  }
+};
+
+export const findUser = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "User not found",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      user,
     });
   } catch (error) {
     console.log(error.message);

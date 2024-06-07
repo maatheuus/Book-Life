@@ -22,8 +22,6 @@ export async function searchBook(query, page, filter, sortBy) {
     url += `&orderBy=${sortBy}`;
   }
 
-  console.log(url);
-
   return axios
     .get(url + urlApi)
     .then((res) => {

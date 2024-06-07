@@ -1,25 +1,20 @@
 import { useState } from "react";
-import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 import { useSignUp } from "./useSignUp";
+import { useForm } from "react-hook-form";
 
 import Button from "../../components/Button";
 import LoginLayout from "../../components/LoginLayout";
-import ButtonIcon from "../../components/ButtonIcon";
 import SpinnerMini from "../../components/SpinnerMini";
+import FormAuth from "./FormAuth";
 
 function SignUp() {
-  const [showPassword, setShowPassword] = useState(false);
   const { signUp, isLoading } = useSignUp();
+  const { register, formState, handleSubmit, getValues } = useForm();
+  const { errors } = formState;
 
-  function handleShowPassword() {
-    setShowPassword(!showPassword);
-  }
-  function handleSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-
-    signUp(data);
+  function onSubmit(data) {
+    // signUp(data);
+    console.log(data);
   }
 
   return (
@@ -27,8 +22,15 @@ function SignUp() {
       <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">
         Join to save your favorite books to read later{" "}
       </h1>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+        <FormAuth
+          register={register}
+          errors={errors}
+          getValues={getValues}
+          name
+          confirmPassword
+        />
+        {/* <div>
           <label
             htmlFor="name"
             className="block text-sm font-semibold text-stone-700"
@@ -111,7 +113,7 @@ function SignUp() {
             name="confirmPassword"
             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
           />
-        </div>
+        </div> */}
         <div>
           <Button type="submit" variation="login">
             {isLoading ? <SpinnerMini /> : "Sign Up"}

@@ -6,12 +6,12 @@ export function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { isLoading, mutate: login } = useMutation({
+  const { isPending: isLoading, mutate: login } = useMutation({
     mutationFn: (data) => loginApi(data),
     onSuccess: (user) => {
-      // queryClient.setQueriesData(["user", user.user]);
-      // navigate();
-      console.log("Successfully logged in");
+      const dataUser = { user };
+      queryClient.setQueryData(["user"], () => user);
+      navigate("/");
     },
     onError: () => {
       console.error("Provided email or password are incorrect");
@@ -20,3 +20,4 @@ export function useLogin() {
 
   return { isLoading, login };
 }
+//Pa$$w0rd!
