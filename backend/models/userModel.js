@@ -24,13 +24,12 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, "Please, enter a password!"],
-    unique: true,
     minLength: 8,
+    select: false,
   },
   confirmPassword: {
     type: String,
     required: [true, "Please, confirm your password!"],
-    unique: true,
     validate: {
       validator: function (el) {
         return el === this.password;
@@ -59,6 +58,13 @@ userSchema.pre("save", async function (next) {
   this.confirmPassword = undefined;
   next();
 });
+
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = model("User", userSchema);
 export default User;

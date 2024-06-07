@@ -6,6 +6,8 @@ function Button({ variation, to, className, children, ...props }) {
 
   const styles = {
     primary: base,
+    login:
+      "w-full bg-black text-white p-2 rounded-md focus:outline-none focus:bg-black transition-colors duration-300",
   };
   if (to)
     return (

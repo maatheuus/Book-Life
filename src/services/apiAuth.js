@@ -1,16 +1,38 @@
-const adicionarDados = async (dados) => {
+import axios from "axios";
+
+const url = "http://localhost:3000/api/v1/users";
+
+export const signUp = async (data) => {
   try {
-    const response = await fetch("http://localhost:3000/api/v1/new-user", {
-      method: "POST",
+    const res = await axios.post(`${url}/signup`, data, {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dados),
     });
-    const responseData = await response.json();
-    console.log(responseData);
+
+    if (res.data.status !== "success" || res.status !== 201)
+      throw new Error("Something went wrong, try again later!");
+
+    return res.data;
   } catch (error) {
     console.error("Erro ao adicionar dados:", error);
+    throw new Error(error.message);
   }
 };
-export default adicionarDados;
+
+export const login = async (data) => {
+  try {
+    const res = await axios.post(`${url}/login`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.data.status !== "success" || res.status !== 200)
+      throw new Error("Something went wrong, try again later!");
+    return res.data;
+  } catch (error) {
+    console.error("Erro ao adicionar dados:", error);
+    throw new Error(error.message);
+  }
+};

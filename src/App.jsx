@@ -7,6 +7,8 @@ const Spinner = lazy(() => import("./components/Spinner"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const PageError = lazy(() => import("./pages/PageError"));
 const BookPage = lazy(() => import("./pages/BookPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,8 @@ const router = createBrowserRouter([
     errorElement: <PageError />,
     children: [{ path: "book/:bookId", element: <BookPage /> }],
   },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/signup", element: <SignUpPage /> },
 ]);
 
 const queryClient = new QueryClient({
