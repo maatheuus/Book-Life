@@ -8,7 +8,6 @@ export function useUser() {
     queryKey: ["user"],
     // queryFn: () => getCurrentUser(data),
   });
-  console.log(user);
   return {
     user,
     isLoading,

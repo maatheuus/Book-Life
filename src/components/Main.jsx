@@ -1,10 +1,11 @@
 import { lazy, Suspense } from "react";
 import { useBook } from "../features/books/useBook";
+
 import Empty from "./Empty";
 import Spinner from "./Spinner";
-import Pagination from "./Pagination";
-import { useUser } from "../features/authentication/useUser";
+import { LuLibrary } from "react-icons/lu";
 
+const Pagination = lazy(() => import("./Pagination"));
 const BookCard = lazy(() => import("../features/books/BookCard"));
 const BookPlaceholderCard = lazy(() =>
   import("../features/books/BookPlaceholderCard")
@@ -13,7 +14,7 @@ const Heading = lazy(() => import("./Heading"));
 
 function Main() {
   const { data, isLoading } = useBook();
-  const { user } = useUser({ email: "teste@teste.com" });
+
   let books = [];
 
   if (data?.items) {
@@ -22,17 +23,30 @@ function Main() {
 
   if (isLoading) {
     return (
-      <Suspense>
-        <BookPlaceholderCard />
-      </Suspense>
+      <div className="flex gap-4">
+        <Suspense>
+          <BookPlaceholderCard />
+          <BookPlaceholderCard />
+          <BookPlaceholderCard />
+          <BookPlaceholderCard />
+        </Suspense>
+      </div>
     );
   }
 
   return (
     <div className="rounded-xl h-auto flex flex-wrap gap-4">
-      {books.length === 0 && <Empty />}
+      {books.length === 0 && (
+        <Empty icon={<LuLibrary />} title="Search for some books..." />
+      )}
       <Suspense fallback={<Spinner />}>
-        {books.length !== 0 && <Heading totalResults={data.totalItems} />}
+        {books.length !== 0 && (
+          <Heading title="About">
+            <span className="text-gray-primary text-base">
+              {data?.totalItems} results
+            </span>
+          </Heading>
+        )}
       </Suspense>
       <ul
         className="list-none mx-auto grid grid-cols-2 flex-wrap gap-x-3 gap-y-3 md:gap-x-3 xl:grid-cols-5 min-[830px]:grid-cols-4 sm:grid-cols-3"
@@ -55,7 +69,9 @@ function Main() {
             );
           })}
       </ul>
-      {books.length !== 0 && <Pagination totalResults={data?.totalItems} />}
+      <Suspense>
+        {books.length !== 0 && <Pagination totalResults={data?.totalItems} />}
+      </Suspense>
     </div>
   );
 }

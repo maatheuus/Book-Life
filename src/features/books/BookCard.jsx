@@ -1,4 +1,8 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../features/authentication/useUser";
+import { useBookmarked } from "../../features/books/useBookmarked";
+
 import {
   HiOutlineStar,
   HiStar,
@@ -10,7 +14,7 @@ import imgNotFound from "../../assets/images/image-not-found.jpeg";
 
 import Button from "../../components/Button";
 import ButtonIcon from "../../components/ButtonIcon";
-import { useState } from "react";
+import { useBook } from "./useBook";
 
 function BookCard({
   title,
@@ -22,9 +26,16 @@ function BookCard({
 }) {
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const { isAuthenticated } = useUser();
+  const { data } = useBook();
+  const { setFavorites, mutate } = useBookmarked();
 
-  function handleBookmark(e) {
+  const filter = data?.items.filter((item) => item.id === id);
+
+  function handleBookmark() {
+    if (!isAuthenticated) navigate("/login");
     setIsBookmarked((isSave) => !isSave);
+    mutate(filter);
   }
 
   return (

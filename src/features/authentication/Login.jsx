@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { useLogin } from "./useLogin";
 import { useForm } from "react-hook-form";
 
+import FormAuth from "./FormAuth";
 import Button from "../../components/Button";
 import LoginLayout from "../../components/LoginLayout";
 import SpinnerMini from "../../components/SpinnerMini";
-import FormAuth from "./FormAuth";
 
 function Login() {
   const { login, isLoading } = useLogin();

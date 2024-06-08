@@ -9,13 +9,17 @@ const PageError = lazy(() => import("./pages/PageError"));
 const BookPage = lazy(() => import("./pages/BookPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
+const FavoriteBooksPage = lazy(() => import("./pages/FavoriteBooksPage"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
     errorElement: <PageError />,
-    children: [{ path: "book/:bookId", element: <BookPage /> }],
+    children: [
+      { path: "book/:bookId", element: <BookPage /> },
+      { path: "book/favorite", element: <FavoriteBooksPage /> },
+    ],
   },
   { path: "/login", element: <LoginPage /> },
   { path: "/signup", element: <SignUpPage /> },

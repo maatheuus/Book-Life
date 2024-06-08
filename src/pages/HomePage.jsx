@@ -1,15 +1,13 @@
 import { lazy, Suspense } from "react";
-import { useParams, Outlet } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
+
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-
 const Spinner = lazy(() => import("../components/Spinner"));
 const Main = lazy(() => import("../components/Main"));
 
-// import adicionarDados from "../services/apiAuth";
-
 function HomePage() {
-  const params = useParams();
+  const { pathname } = useLocation();
   return (
     <div className="grid grid-rows-6 grid-cols-8 gap-x-6 h-screen bg-gray-200/75 p-6 lg:grid-cols-6">
       <Sidebar />
@@ -19,7 +17,7 @@ function HomePage() {
           <Header />
 
           <Suspense fallback={<Spinner />}>
-            {params.bookId === undefined && <Main />}
+            {pathname === "/" && <Main />}
           </Suspense>
 
           <Suspense fallback={<Spinner />}>

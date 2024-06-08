@@ -8,8 +8,9 @@ import ButtonIcon from "./ButtonIcon";
 import { useUser } from "../features/authentication/useUser";
 
 function Dropdown() {
-  const { user = {}, isAuthenticated } = useUser();
-  const name = user?.user?.name;
+  const { user, isAuthenticated } = useUser();
+  const name = user?.user?.name || "";
+
   return (
     <div className="relative group col-start-6 justify-self-end">
       <ButtonIcon variation="secondary">
