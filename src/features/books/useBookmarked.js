@@ -1,18 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { setBookmarked } from "../../services/apiBooks";
 
 export function useBookmarked() {
   const [favorites, setFavorites] = useState([]);
   const queryClient = useQueryClient();
 
-  const {
-    isLoading: isSearching,
-    mutate,
-    data,
-  } = useMutation({
+  const { isLoading: isSearching, mutate } = useMutation({
     mutationFn: (book) => setFavorites(book),
-    onSuccess: () => {
-      console.log(favorites);
+    onMutate: (book, error) => {
+      console.log("favorites", favorites);
+      console.log("book", book);
       //   queryClient.setQueriesData(["user", "favorites-books"], () => favorites);
       //   queryClient.invalidateQueries({
       //     queryKey: ["books"],
@@ -20,7 +18,6 @@ export function useBookmarked() {
     },
     onError: (err) => console.log(err),
   });
-  console.log(data);
 
   return { favorites, setFavorites, mutate };
 }

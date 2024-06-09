@@ -30,12 +30,11 @@ function BookCard({
   const { data } = useBook();
   const { setFavorites, mutate } = useBookmarked();
 
-  const filter = data?.items.filter((item) => item.id === id);
-
   function handleBookmark() {
-    if (!isAuthenticated) navigate("/login");
+    // if (!isAuthenticated) navigate("/login");
     setIsBookmarked((isSave) => !isSave);
-    mutate(filter);
+    const filteredValue = data?.items.filter((item) => item.id === id);
+    mutate(filteredValue);
   }
 
   return (

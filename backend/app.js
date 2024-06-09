@@ -7,7 +7,8 @@ import helmet from "helmet";
 import cors from "cors";
 import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
-import { router } from "./routes/userRoutes.js";
+import { router as routerUser } from "./routes/userRoutes.js";
+import { router as routerBooks } from "./routes/bookRoutes.js";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/v1/users", router);
+app.use("/api/v1/users", routerUser);
+app.use("/api/v1/users", routerBooks);
 
 export default app;

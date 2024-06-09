@@ -33,3 +33,24 @@ export async function searchBook(query, page, filter, sortBy) {
       throw new Error(err.message);
     });
 }
+
+export async function setBookmarked(data) {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_URL}/bookmarked`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (res.data.status !== "success" || res.status !== 201)
+      throw new Error("Something went wrong, try again later!");
+
+    return res.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
