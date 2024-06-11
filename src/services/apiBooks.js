@@ -34,7 +34,7 @@ export async function searchBook(query, page, filter, sortBy) {
     });
 }
 
-export async function setBookmarked(data) {
+export async function postBookmarked(data) {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_URL}/bookmarked`,
@@ -46,8 +46,9 @@ export async function setBookmarked(data) {
       }
     );
 
-    if (res.data.status !== "success" || res.status !== 201)
+    if (res.data.status !== "success")
       throw new Error("Something went wrong, try again later!");
+    // console.log(res);
 
     return res.data;
   } catch (err) {

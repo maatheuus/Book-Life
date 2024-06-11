@@ -3,9 +3,10 @@ import BookMark from "../models/bookmarkModel.js";
 
 export const setFavoriteBooks = async (req, res, next) => {
   try {
-    const { email, favoriteBooks, totalBooks } = req.body;
+    const { favoriteBooks, totalBooks } = req.body;
+    const { email } = req.body.user;
+
     const user = await User.findOne({ email });
-    const { _id, name } = user;
 
     if (!user) {
       return res.status(404).json({
@@ -13,6 +14,7 @@ export const setFavoriteBooks = async (req, res, next) => {
         message: "User not found",
       });
     }
+    const { _id, name } = user;
 
     const isAlreadyExist = await BookMark.find({
       "user.email": email,
@@ -44,7 +46,9 @@ export const setFavoriteBooks = async (req, res, next) => {
 
     res.status(200).json({
       status: "success",
-      data,
+      data: {
+        items: data,
+      },
     });
   } catch (error) {
     console.log(error.message);

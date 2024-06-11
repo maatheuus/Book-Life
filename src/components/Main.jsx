@@ -14,7 +14,6 @@ const Heading = lazy(() => import("./Heading"));
 
 function Main() {
   const { data, isLoading } = useBook();
-
   let books = [];
 
   if (data?.items) {

@@ -1,14 +1,14 @@
 import { Suspense, lazy } from "react";
 import { HiHeart } from "react-icons/hi";
 
-import { useBookmarked } from "./useBookmarked";
+// import { useBookmarked } from "./useBookmarked";
 
 import Heading from "../../components/Heading";
 import Spinner from "../../components/Spinner";
 const Empty = lazy(() => import("../../components/Empty"));
 
 function FavoriteBooks() {
-  const { favorites, isLoading } = useBookmarked();
+  // const { data } = useBookmarked();
   let books = [];
 
   return (
