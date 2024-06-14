@@ -27,7 +27,14 @@ export async function searchBook(query, page, filter, sortBy) {
     .then((res) => {
       if (res.status !== 200)
         throw new Error("Could not fetch the data, please try again!");
-      return res.data;
+
+      const data = res.data?.items.map((book) => {
+        return {
+          ...book,
+          isBookmarked: false,
+        };
+      });
+      return data;
     })
     .catch((err) => {
       throw new Error(err.message);
@@ -48,7 +55,6 @@ export async function postBookmarked(data) {
 
     if (res.data.status !== "success")
       throw new Error("Something went wrong, try again later!");
-    // console.log(res);
 
     return res.data;
   } catch (err) {

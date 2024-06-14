@@ -1,5 +1,5 @@
 export function addFavorites(data, id, isSave) {
-  const favorites = [...data.items];
+  const favorites = [...data];
   const existingBookIndex = favorites.findIndex((item) => item.id === id);
 
   if (existingBookIndex > -1) {

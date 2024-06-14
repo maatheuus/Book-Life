@@ -8,14 +8,13 @@ export function useSetQuery() {
   const { isLoading: isSearching, mutate: searchBooks } = useMutation({
     mutationFn: ({ query }) => setQuery(query),
     onSuccess: () => {
-      queryClient.setQueryData({
-        queryKey: ["books"],
-      });
       queryClient.invalidateQueries({
         queryKey: ["books"],
       });
     },
-    onError: (err) => console.log(err),
+    onError: (err) => {
+      throw new Error(err);
+    },
   });
 
   return { isSearching, searchBooks };

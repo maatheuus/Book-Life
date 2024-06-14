@@ -13,20 +13,12 @@ const BookPlaceholderCard = lazy(() =>
 const Heading = lazy(() => import("./Heading"));
 
 function Main() {
-  const { data, isLoading } = useBook();
-  let books = [];
-
-  if (data?.items) {
-    books = data.items;
-  }
+  const { data: books = [], isLoading } = useBook();
 
   if (isLoading) {
     return (
-      <div className="flex gap-4">
+      <div className="h-auto flex flex-wrap gap-4">
         <Suspense>
-          <BookPlaceholderCard />
-          <BookPlaceholderCard />
-          <BookPlaceholderCard />
           <BookPlaceholderCard />
         </Suspense>
       </div>
@@ -42,7 +34,7 @@ function Main() {
         {books.length !== 0 && (
           <Heading title="About">
             <span className="text-gray-primary text-base">
-              {data?.totalItems} results
+              {books?.totalItems} results
             </span>
           </Heading>
         )}
@@ -69,7 +61,7 @@ function Main() {
           })}
       </ul>
       <Suspense>
-        {books.length !== 0 && <Pagination totalResults={data?.totalItems} />}
+        {books.length !== 0 && <Pagination totalResults={books?.totalItems} />}
       </Suspense>
     </div>
   );

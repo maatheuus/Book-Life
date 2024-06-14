@@ -1,20 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useBook } from "./useBook";
-import { useUser } from "../../features/authentication/useUser";
-import { useBookmarked } from "../../features/books/useBookmarked";
-import { addFavorites } from "../../services/addFavorites";
-import SpinnerMini from "../../components/SpinnerMini";
-
-import {
-  HiOutlineStar,
-  HiStar,
-  HiOutlineShoppingCart,
-  HiOutlineHeart,
-  HiHeart,
-} from "react-icons/hi2";
+import { HiOutlineStar, HiStar, HiOutlineShoppingCart } from "react-icons/hi2";
 import imgNotFound from "../../assets/images/image-not-found.jpeg";
 
+import BookmarkButton from "./BookmarkButton";
 import Button from "../../components/Button";
 import ButtonIcon from "../../components/ButtonIcon";
 
@@ -26,44 +13,10 @@ function BookCard({
   linkTo,
   id,
 }) {
-  const navigate = useNavigate();
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const { isAuthenticated } = useUser();
-  const { data } = useBook();
-  const { setFavorites, isSaving } = useBookmarked();
-
-  function handleBookmark(id) {
-    if (!isAuthenticated) navigate("/login");
-    setIsBookmarked((isSave) => {
-      const favorites = addFavorites(data, id, isSave);
-
-      if (favorites.length === 0) return;
-      setFavorites(favorites);
-      return !isSave;
-    });
-  }
-
   return (
     <li className="relative max-w-sm min-w-[184px] bg-white shadow-sm rounded-xl px-4 py-3 transition duration-300 hover:scale-105 hover:shadow-md">
       <div>
-        <div className="flex">
-          <ButtonIcon
-            onClick={() => handleBookmark(id)}
-            className="ml-auto bg-white rounded-full p-2 cursor-pointer text-stone-800 hover:animate-pulse"
-          >
-            {isBookmarked ? (
-              isSaving ? (
-                <SpinnerMini className="text-primary w-4" />
-              ) : (
-                <HiHeart className="fill-primary" />
-              )
-            ) : isSaving ? (
-              <SpinnerMini className="text-primary w-4" />
-            ) : (
-              <HiOutlineHeart className="hover:text-primary" />
-            )}
-          </ButtonIcon>
-        </div>
+        <BookmarkButton id={id} />
         <div>
           <Button
             className="block w-40 overflow-hidden object-fill"
