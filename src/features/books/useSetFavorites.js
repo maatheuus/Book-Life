@@ -1,16 +1,16 @@
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useBook } from "./useBook";
-import { useState } from "react";
 
 export function useSetFavorites() {
   const queryClient = useQueryClient();
   const [value, setValue] = useState();
   const { data } = useBook();
 
-  const { mutate: setFavorite, isPending } = useMutation({
+  const { mutate: setFavorite } = useMutation({
     mutationFn: (book) => setValue(book),
     onSuccess: () => {
-      queryClient.setQueriesData(["books"], () => {
+      queryClient.setQueryData(["books"], () => {
         const findValue = data.findIndex((query) => query.id === value.id);
         const updateBooks = [...data];
 
@@ -27,6 +27,5 @@ export function useSetFavorites() {
     },
   });
 
-  console.log(isPending);
   return { setFavorite };
 }

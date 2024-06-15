@@ -18,7 +18,7 @@ export function useBookmarked() {
     onMutate(data, err) {
       if (err) throw new Error(err);
 
-      queryClient.setQueryData(["favorites-book"], () => data);
+      queryClient.setQueriesData(["favorites-book"], () => data);
     },
   });
 

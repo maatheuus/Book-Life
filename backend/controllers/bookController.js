@@ -58,3 +58,35 @@ export const setFavoriteBooks = async (req, res, next) => {
     });
   }
 };
+
+export const getFavoriteBooks = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await BookMark.find({
+      "user.email": email,
+    });
+
+    console.log(req.body);
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "User not found",
+      });
+    }
+    const data = user[0].favoriteBooks;
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        items: data,
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({
+      status: "fail",
+      message: error,
+    });
+  }
+};

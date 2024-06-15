@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBook } from "./useBook";
+import { useSetFavorites } from "./useSetFavorites";
 
 import { HiHeart, HiOutlineHeart } from "react-icons/hi2";
 import { useUser } from "../../features/authentication/useUser";
@@ -9,23 +9,19 @@ import { addFavorites } from "../../services/addFavorites";
 
 import SpinnerMini from "../../components/SpinnerMini";
 import ButtonIcon from "../../components/ButtonIcon";
-// import { useFavorite } from "./useFavorite";
-import { useSetFavorites } from "./useSetFavorites";
 
 function BookmarkButton({ id }) {
   const navigate = useNavigate();
-  const [isFavorite, setIsFavorites] = useState(false);
 
   const { data } = useBook();
   const { isAuthenticated } = useUser();
   const { bookmarked, isSaving } = useBookmarked();
-  // const { favoriteBooks } = useFavorite();
   const { setFavorite } = useSetFavorites();
 
   const filteredBook = data.find((book) => book.id === id);
 
   function handleBookmark() {
-    // if (!isAuthenticated) navigate("/login");
+    if (!isAuthenticated) navigate("/login");
 
     const { favoriteBooks } = addFavorites(
       data,
@@ -34,28 +30,8 @@ function BookmarkButton({ id }) {
     );
     if (favoriteBooks.length === 0) return;
 
-    bookmarked(favoriteBooks);
     setFavorite({ ...filteredBook });
-
-    // if (bookToUpdate.isBookmarked === false) {
-    // }
-
-    // const bookmarkCopy = { ...bookToUpdate };
-    // let newBook = {};
-
-    // if (bookToUpdate) {
-    //   newBook = {
-    //     ...bookmarkCopy,
-    //     isBookmarked: true,
-    //   };
-    // }
-    // console.log(newBook);
-
-    // setIsBookmarked((isSave) => !isSave);
-
-    // if (bookToUpdate.isBookmarked) {
-    //   console.log("Bookmarked", bookToUpdate);
-    //  const favorites = addFavorites(data, id, isSave);
+    // bookmarked(favoriteBooks);
   }
 
   return (
@@ -84,3 +60,22 @@ export default BookmarkButton;
 //   // if (favorites.length === 0) return;
 //   // setFavorites(favorites);
 // }
+// if (bookToUpdate.isBookmarked === false) {
+// }
+
+// const bookmarkCopy = { ...bookToUpdate };
+// let newBook = {};
+
+// if (bookToUpdate) {
+//   newBook = {
+//     ...bookmarkCopy,
+//     isBookmarked: true,
+//   };
+// }
+// console.log(newBook);
+
+// setIsBookmarked((isSave) => !isSave);
+
+// if (bookToUpdate.isBookmarked) {
+//   console.log("Bookmarked", bookToUpdate);
+//  const favorites = addFavorites(data, id, isSave);

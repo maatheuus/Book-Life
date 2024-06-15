@@ -3,12 +3,15 @@ import { HiHeart } from "react-icons/hi";
 import { useFavorite } from "./useFavorite";
 
 import Spinner from "../../components/Spinner";
+import { useUser } from "../authentication/useUser";
 const Heading = lazy(() => import("../../components/Heading"));
 const Empty = lazy(() => import("../../components/Empty"));
 const BookCard = lazy(() => import("./BookCard"));
 
 function FavoriteBooks() {
-  const { favoriteBooks } = useFavorite();
+  const { user } = useUser();
+  const { email } = user?.user || {};
+  const { favoriteBooks } = useFavorite(email);
 
   return (
     <div className="rounded-xl h-auto flex flex-wrap gap-4">

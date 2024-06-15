@@ -1,5 +1,9 @@
 import axios from "axios";
-
+const header = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
 export async function searchBook(query, page, filter, sortBy) {
   const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -46,17 +50,32 @@ export async function postBookmarked(data) {
     const res = await axios.post(
       `${import.meta.env.VITE_URL}/bookmarked`,
       data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      header
     );
 
     if (res.data.status !== "success")
       throw new Error("Something went wrong, try again later!");
 
     return res.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
+export async function getBookmarked(email) {
+  try {
+    console.log(email);
+    // const res = await axios.get(
+    //   `${import.meta.env.VITE_URL}/bookmarked/favorites`,
+    //   email,
+    //   header
+    // );
+
+    // if (res.data.status !== "success")
+    //   throw new Error("Something went wrong, try again later!");
+
+    return [];
+    // return res;
   } catch (err) {
     throw new Error(err.message);
   }
