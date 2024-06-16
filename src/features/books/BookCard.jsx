@@ -4,6 +4,7 @@ import imgNotFound from "../../assets/images/image-not-found.jpeg";
 import BookmarkButton from "./BookmarkButton";
 import Button from "../../components/Button";
 import ButtonIcon from "../../components/ButtonIcon";
+import { useNavigate } from "react-router-dom";
 
 function BookCard({
   title,
@@ -13,6 +14,8 @@ function BookCard({
   linkTo,
   id,
 }) {
+  const navigate = useNavigate();
+
   return (
     <li className="relative max-w-sm min-w-[184px] bg-white shadow-sm rounded-xl px-4 py-3 transition duration-300 hover:scale-105 hover:shadow-md">
       <div>

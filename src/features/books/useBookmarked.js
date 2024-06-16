@@ -7,18 +7,19 @@ export function useBookmarked() {
   const queryClient = useQueryClient();
 
   const { mutate: bookmarked, isPending: isSaving } = useMutation({
-    mutationFn: ({ favoriteBooks }) => {
+    mutationFn: (bookmarked) => {
       const data = {
         user: user.user,
-        favoriteBooks,
-        totalBooks: favoriteBooks.length,
+        favoriteBooks: bookmarked,
+        totalBooks: bookmarked.length,
       };
-      // return postBookmarked(data);
+      return postBookmarked(data);
     },
-    onMutate(data, err) {
+    onMutate(value, err) {
       if (err) throw new Error(err);
-
-      queryClient.setQueriesData(["favorites-book"], () => data);
+      console.log(value);
+      const data = value?.filter((item = item.isBookmarked === true));
+      queryClient.setQueryData(["favorites-book"], () => data);
     },
   });
 

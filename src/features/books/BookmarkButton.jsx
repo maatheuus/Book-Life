@@ -9,29 +9,38 @@ import { addFavorites } from "../../services/addFavorites";
 
 import SpinnerMini from "../../components/SpinnerMini";
 import ButtonIcon from "../../components/ButtonIcon";
+import { useFavorite } from "./useFavorite";
+import { useLocation } from "react-router-dom";
 
 function BookmarkButton({ id }) {
   const navigate = useNavigate();
-
+  const { favoriteBooks = [] } = useFavorite();
   const { data } = useBook();
   const { isAuthenticated } = useUser();
   const { bookmarked, isSaving } = useBookmarked();
   const { setFavorite } = useSetFavorites();
+  const { pathname } = useLocation();
 
-  const filteredBook = data.find((book) => book.id === id);
+  let books = [];
+  const checkData = pathname.includes("favorite");
+
+  checkData ? (books = favoriteBooks) : (books = data);
+
+  const filteredBook = books.find((book) => book.id === id);
 
   function handleBookmark() {
     if (!isAuthenticated) navigate("/login");
 
     const { favoriteBooks } = addFavorites(
-      data,
+      books,
       filteredBook.id,
       filteredBook.isBookmarked
     );
+
     if (favoriteBooks.length === 0) return;
 
     setFavorite({ ...filteredBook });
-    // bookmarked(favoriteBooks);
+    bookmarked(favoriteBooks);
   }
 
   return (

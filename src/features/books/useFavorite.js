@@ -1,17 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { getBookmarked } from "../../services/apiBooks";
+import { useUser } from "../authentication/useUser";
 
-export function useFavorite(email) {
-  const { data, isPending: isLoading } = useQuery({
+export function useFavorite() {
+  const { user } = useUser();
+  const { email } = user?.user || {};
+
+  const { data: favoriteBooks, isPending: isLoading } = useQuery({
     queryKey: ["favorites-book"],
-    // queryFn: () => getBookmarked(email),
+    queryFn: () => getBookmarked({ email }),
   });
-
-  console.log(data);
-
-  const filterBookmark = data?.filter((book) => book.isBookmarked === true);
-
-  const favoriteBooks = filterBookmark || [];
 
   return { isLoading, favoriteBooks };
 }

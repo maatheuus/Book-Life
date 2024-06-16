@@ -13,13 +13,18 @@ function Dropdown() {
 
   return (
     <div className="relative group col-start-6 justify-self-end">
-      <ButtonIcon variation="secondary">
-        <FaRegCircleUser />
-        <span className="text-sm">{isAuthenticated ? name : "Login"}</span>{" "}
-        <FaChevronDown className="rotate-0 group-hover:rotate-180 transition-transform duration-300" />
+      <ButtonIcon
+        variation="secondary"
+        className="w-36 gap-3 flex items-center"
+      >
+        <FaRegCircleUser className="min-w-fit" />
+        <span className="text-sm min-w-fit">
+          {isAuthenticated ? name : "Login"}
+        </span>{" "}
+        <FaChevronDown className="rotate-0 min-w-fit group-hover:rotate-180 transition-transform duration-300" />
       </ButtonIcon>
 
-      <div className="absolute z-20 bg-stone-50 rounded-lg shadow px-8 group-hover:animate-toggle invisible group-hover:visible">
+      <div className="absolute z-20 min-w-fit bg-stone-50 rounded-lg shadow px-8 group-hover:animate-toggle invisible group-hover:visible">
         {isAuthenticated ? (
           <ButtonIcon
             variation="primary"
