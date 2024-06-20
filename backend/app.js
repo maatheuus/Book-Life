@@ -21,13 +21,14 @@ if (process.env.NODE_DEV === "development") {
   app.use(morgan("dev"));
 }
 
-app.use(express.json({ limit: "10kb" }));
+app.use(express.json({ limit: "60kb" }));
 
 app.use(mongoSanitize());
 app.use(xss());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
+
   next();
 });
 

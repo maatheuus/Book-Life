@@ -5,14 +5,15 @@ import BookmarkButton from "./BookmarkButton";
 import Button from "../../components/Button";
 import ButtonIcon from "../../components/ButtonIcon";
 import { useNavigate } from "react-router-dom";
+import StarIcons from "../../components/StarIcons ";
 
 function BookCard({
+  id,
   title,
   image = imgNotFound,
   averageRating,
   price,
   linkTo,
-  id,
 }) {
   const navigate = useNavigate();
 
@@ -34,11 +35,7 @@ function BookCard({
       </div>
       <div className="flex items-center justify-center mt-2">
         <div className="flex items-center space-x-1 rtl:space-x-reverse">
-          <HiStar className="w-4 h-4 text-primary" />
-          <HiStar className="w-4 h-4 text-primary" />
-          <HiStar className="w-4 h-4 text-primary" />
-          <HiStar className="w-4 h-4 text-primary" />
-          <HiOutlineStar className="w-4 h-4 text-primary" />
+          <StarIcons key={id} rating={averageRating} />
         </div>
       </div>
       <div className="mt-3 mb-6 text-left">

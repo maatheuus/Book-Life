@@ -34,7 +34,7 @@ export async function searchBook(query, page, filter, sortBy) {
           isBookmarked: false,
         };
       });
-      return data;
+      return { data, totalItems: res.data?.totalItems };
     })
     .catch((err) => {
       throw new Error(err.message);
@@ -64,10 +64,10 @@ export async function postBookmarked(data) {
 
 export async function getBookmarked(params) {
   try {
-    if (params.email === undefined) return;
+    if (params.email === undefined) return [];
 
     const res = await axios.get(
-      `${import.meta.env.VITE_URL}/bookmarked/favorites/`,
+      `${import.meta.env.VITE_URL}/bookmarked/favorites`,
       { params }
     );
 

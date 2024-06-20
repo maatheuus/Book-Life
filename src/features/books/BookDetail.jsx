@@ -10,14 +10,16 @@ import { useBook } from "./useBook";
 import image from "../../assets/images/image-not-found.jpeg";
 import ButtonIcon from "../../components/ButtonIcon";
 import { HiArrowSmLeft } from "react-icons/hi";
+import StarIcons from "../../components/StarIcons ";
+import BookmarkButton from "./BookmarkButton";
 const BookPlaceholder = lazy(() => import("./BookPlaceholder"));
 
 function BookDetail() {
-  const { data, isLoading, isFetching } = useBook();
+  const { books, isLoading } = useBook();
   const { bookId } = useParams();
-  const curBook = data.items.filter((book) => book.id === bookId);
+  const curBook = books.filter((book) => book.id === bookId);
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
       <Suspense>
         <BookPlaceholder />
@@ -43,6 +45,8 @@ function BookDetail() {
               const book = entry.volumeInfo;
               const imgCover = book.imageLinks?.smallThumbnail || image;
               const price = entry.saleInfo?.listPrice?.amount;
+              const averageRating = book.averageRating;
+              console.log(entry);
 
               return (
                 <>
@@ -86,42 +90,38 @@ function BookDetail() {
                         {book.pageCount}
                       </span>
                     </p>
-
-                    {book.averageRating !== undefined && (
-                      <div className="mt-2 flex items-center gap-2">
-                        <div className="flex items-center gap-1">
-                          <HiStar className="fill-primary" />
-                          <HiStar className="fill-primary" />
-                          <HiStar className="fill-primary" />
-                          <HiStar className="fill-primary" />
-                        </div>
-                        <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
-                          {book.averageRating?.toFixed(1)}
-                        </p>
+                    <div className="mt-2 flex items-center gap-2">
+                      <div className="flex items-center gap-1">
+                        <StarIcons rating={averageRating} />
                       </div>
-                    )}
-                    <div className="mt-3 mb-2 flex items-center gap-4">
-                      <ButtonIcon variation="primary">
-                        <HiOutlineHeart className="w-4 h-4" />
-                        Add to favorites
-                      </ButtonIcon>
-
-                      {price !== undefined && (
-                        <ButtonIcon
-                          variation="primary"
-                          to={entry.saleInfo.buyLink}
-                          target="_blank"
-                        >
-                          <HiOutlineShoppingCart className="w-4 h-4" />
-                          Add to cart
-                        </ButtonIcon>
+                      {averageRating && (
+                        <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+                          ({averageRating?.toFixed(1)})
+                        </p>
                       )}
                     </div>
-
+                    <div className="mt-3 mb-2 flex items-center gap-6">
+                      <div>
+                        <BookmarkButton id={entry.id}>
+                          Add to favorites
+                        </BookmarkButton>
+                      </div>
+                      <div className="flex">
+                        {price !== undefined && (
+                          <ButtonIcon
+                            variation="primary"
+                            to={entry.saleInfo.buyLink}
+                            target="_blank"
+                          >
+                            <HiOutlineShoppingCart className="w-4 h-4" />
+                            Add to cart
+                          </ButtonIcon>
+                        )}
+                      </div>
+                    </div>
                     <p className="mb-6 text-gray-primary hyphens-auto">
                       {book.description}
                     </p>
-
                     <div className="mb-3">
                       <ButtonIcon
                         variation="primary"

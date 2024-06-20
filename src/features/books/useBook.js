@@ -29,5 +29,8 @@ export function useBook() {
     keepPreviousData: true,
   });
 
-  return { isLoading, data, setQuery };
+  const books = data?.data;
+  const totalItems = data?.totalItems;
+
+  return { isLoading, books, totalItems, setQuery };
 }

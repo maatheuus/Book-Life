@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useBook } from "./useBook";
-import { useSetFavorites } from "./useSetFavorites";
 
 import { HiHeart, HiOutlineHeart } from "react-icons/hi2";
 import { useUser } from "../../features/authentication/useUser";
@@ -12,17 +11,16 @@ import ButtonIcon from "../../components/ButtonIcon";
 import { useFavorite } from "./useFavorite";
 import { useLocation } from "react-router-dom";
 
-function BookmarkButton({ id }) {
+function BookmarkButton({ id, children }) {
   const navigate = useNavigate();
-  const { favoriteBooks = [] } = useFavorite();
-  const { data } = useBook();
   const { isAuthenticated } = useUser();
-  const { bookmarked, isSaving } = useBookmarked();
-  const { setFavorite } = useSetFavorites();
+  // const { bookmarked, isSaving } = useBookmarked();
+  const { favoriteBooks, bookmarked, isSaving } = useFavorite();
+  const { books: data } = useBook();
   const { pathname } = useLocation();
 
-  let books = [];
   const checkData = pathname.includes("favorite");
+  let books = [];
 
   checkData ? (books = favoriteBooks) : (books = data);
 
@@ -37,9 +35,6 @@ function BookmarkButton({ id }) {
       filteredBook.isBookmarked
     );
 
-    if (favoriteBooks.length === 0) return;
-
-    setFavorite({ ...filteredBook });
     bookmarked(favoriteBooks);
   }
 
@@ -47,7 +42,8 @@ function BookmarkButton({ id }) {
     <div className="flex">
       <ButtonIcon
         onClick={() => handleBookmark(id)}
-        className="ml-auto bg-white rounded-full p-2 cursor-pointer text-stone-800 hover:animate-pulse"
+        variation="primary"
+        className="ml-auto  rounded-full p-2 cursor-pointer text-gray-primary hover:animate-pulse"
       >
         {filteredBook?.isBookmarked ? (
           isSaving ? (
@@ -60,31 +56,10 @@ function BookmarkButton({ id }) {
         ) : (
           <HiOutlineHeart className="hover:text-primary" />
         )}
+        {children}
       </ButtonIcon>
     </div>
   );
 }
 
 export default BookmarkButton;
-//   // if (favorites.length === 0) return;
-//   // setFavorites(favorites);
-// }
-// if (bookToUpdate.isBookmarked === false) {
-// }
-
-// const bookmarkCopy = { ...bookToUpdate };
-// let newBook = {};
-
-// if (bookToUpdate) {
-//   newBook = {
-//     ...bookmarkCopy,
-//     isBookmarked: true,
-//   };
-// }
-// console.log(newBook);
-
-// setIsBookmarked((isSave) => !isSave);
-
-// if (bookToUpdate.isBookmarked) {
-//   console.log("Bookmarked", bookToUpdate);
-//  const favorites = addFavorites(data, id, isSave);

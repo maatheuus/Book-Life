@@ -10,6 +10,7 @@ export function addFavorites(data, id, isSave) {
     const newItem = { id, isBookmarked: !isSave };
     favorites.push(newItem);
   }
+
   const isolatedFavorites = favorites
     .map((book) => book)
     .filter((book) => book.isBookmarked === true || book.isBookmarked);
