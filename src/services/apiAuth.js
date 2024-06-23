@@ -10,7 +10,7 @@ export const signUp = async (data) => {
       },
     });
 
-    if (res.data.status !== "success" || res.status !== 201)
+    if (res.data.status !== "success")
       throw new Error("Something went wrong, try again later!");
 
     return res.data;
@@ -28,12 +28,20 @@ export const login = async (data) => {
       },
     });
 
-    if (res.data.status !== "success" || res.status !== 200)
+    if (res.data.status !== "success")
       throw new Error("Something went wrong, try again later!");
 
     return res.data;
   } catch (error) {
     throw new Error(error.message);
+  }
+};
+
+export const logout = async () => {
+  try {
+    return await axios.get(`${URL}/logout`);
+  } catch (error) {
+    console.log(error);
   }
 };
 

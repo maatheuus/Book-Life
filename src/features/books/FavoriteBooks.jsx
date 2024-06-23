@@ -3,23 +3,23 @@ import { HiHeart } from "react-icons/hi";
 import { useFavorite } from "./useFavorite";
 
 const Spinner = lazy(() => import("../../components/Spinner"));
+const BookPlaceholderCard = lazy(() => import("./BookPlaceholderCard"));
 const Heading = lazy(() => import("../../components/Heading"));
 const Empty = lazy(() => import("../../components/Empty"));
 const BookCard = lazy(() => import("./BookCard"));
 
 function FavoriteBooks() {
-  const { favoriteBooks, isLoading } = useFavorite();
+  const { favoriteBooks = [], isLoading } = useFavorite();
 
   if (isLoading) {
     return (
       <div className="h-auto flex flex-wrap gap-4">
         <Suspense>
-          <Spinner />
+          <BookPlaceholderCard />
         </Suspense>
       </div>
     );
   }
-
   return (
     <div className="rounded-xl h-auto flex flex-wrap gap-4">
       <Suspense fallback={<Spinner />}>
@@ -46,6 +46,7 @@ function FavoriteBooks() {
             const book = entry.volumeInfo;
             const smallImage = book.imageLinks?.smallThumbnail;
             const price = entry.saleInfo?.listPrice?.amount;
+
             return (
               <BookCard
                 key={entry.id}

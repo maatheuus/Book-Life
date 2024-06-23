@@ -7,6 +7,33 @@ const signToken = (id) => {
   });
 };
 
+const createSendToken = (user, role, statusCode, req, res) => {
+  const token = signToken(user._id);
+  const cookieOptions = {
+    // converting time to milliseconds
+    expiresIn: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+
+  res.cookie("jwt", token);
+
+  user.password = undefined;
+  user.__v = undefined;
+
+  res.status(statusCode).json({
+    status: "success",
+    token,
+    role,
+    data: {
+      user,
+    },
+  });
+};
+
 export const signup = async (req, res, next) => {
   try {
     const newUser = await User.create({
@@ -16,15 +43,7 @@ export const signup = async (req, res, next) => {
       confirmPassword: req.body.confirmPassword,
     });
 
-    const token = signToken(newUser._id);
-
-    res.status(201).json({
-      status: "success",
-      token,
-      data: {
-        user: newUser,
-      },
-    });
+    createSendToken(newUser, 200, req, res);
   } catch (error) {
     console.log(error.message);
     res.status(400).json({
@@ -58,19 +77,7 @@ export const login = async (req, res, next) => {
     }
 
     // 3) If everything ok, send token to user
-    const token = signToken(user._id);
-    res.status(200).json({
-      status: "success",
-      token,
-      role: "authenticated",
-      user: {
-        name: user.name,
-        email: user.email,
-        created_at: user.createdAt,
-        updated_at: user.updateAt,
-        id: user._id,
-      },
-    });
+    createSendToken(user, "authenticated", 200, req, res);
   } catch (error) {
     console.log(error.message);
     res.status(400).json({
@@ -78,6 +85,14 @@ export const login = async (req, res, next) => {
       message: error,
     });
   }
+};
+
+export const logout = (req, res) => {
+  res.cookie("jwt", "logout", {
+    expiresIn: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({ status: "success" });
 };
 
 export const findUser = async (req, res, next) => {

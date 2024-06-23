@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useBook } from "./useBook";
+import toast from "react-hot-toast";
 
 export function useSetQuery() {
   const { setQuery } = useBook();
@@ -13,6 +14,9 @@ export function useSetQuery() {
       });
     },
     onError: (err) => {
+      toast.error(
+        "Sorry, something went wrong with your request! Try again later."
+      );
       throw new Error(err);
     },
   });

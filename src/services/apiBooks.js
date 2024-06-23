@@ -64,8 +64,6 @@ export async function postBookmarked(data) {
 
 export async function getBookmarked(params) {
   try {
-    if (params.email === undefined) return [];
-
     const res = await axios.get(
       `${import.meta.env.VITE_URL}/bookmarked/favorites`,
       { params }

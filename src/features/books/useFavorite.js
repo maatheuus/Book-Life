@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookmarked, postBookmarked } from "../../services/apiBooks";
 import { useUser } from "../authentication/useUser";
 import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function flattenArray(arr) {
   return arr.reduce(
@@ -16,26 +18,33 @@ function removeDuplicates(arr) {
 }
 
 export function useFavorite() {
-  const { user } = useUser();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const { user, isAuthenticated } = useUser();
   const { pathname } = useLocation();
   const { email } = user?.user || {};
 
-  const { data: favoriteBooks, isLoading } = useQuery({
+  const {
+    data: favoriteBooks,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["favorites-books"],
     queryFn: () => {
-      if (pathname.includes("favorite")) return getBookmarked({ email });
+      if (pathname.includes("favorite") && !isAuthenticated) navigate("/login");
+      else if (isAuthenticated) return getBookmarked({ email });
+
+      return [];
     },
     keepPreviousData: true,
   });
 
-  const queryClient = useQueryClient();
-
-  // const data = ;
+  console.log(isFetching);
 
   const { mutate: bookmarked, isPending: isSaving } = useMutation({
     mutationFn: () => {
       const queryData = queryClient.getQueryData(["favorites-books"]);
-      console.log(queryData);
       return postBookmarked({
         user: user?.user,
         favoriteBooks: queryData,
@@ -54,18 +63,16 @@ export function useFavorite() {
           (item) => item.isBookmarked === true
         );
 
-        // const data = {
-        //   user: user.user,
-        //   favoriteBooks: filterArray,
-        //   totalBooks: filterArray.length,
-        // };
-        // postBookmarked(data);
-
         return filterArray;
       });
     },
+    onSuccess() {
+      toast.success("Success!");
+    },
+    onError() {
+      toast.error("Something went wrong, try again later please!");
+    },
   });
-  // console.log(favoriteBooks);
 
   return { isLoading, favoriteBooks, bookmarked, isSaving };
 }

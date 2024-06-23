@@ -40,13 +40,12 @@ function BookDetail() {
       </div>
       <section className="bg-stone-50 rounded-lg relative overflow-hidden">
         <div className="max-w-screen-xl mx-auto">
-          <div className="flex" key={Math.random() * 3}>
+          <div className="flex" key={bookId}>
             {curBook.map((entry) => {
               const book = entry.volumeInfo;
               const imgCover = book.imageLinks?.smallThumbnail || image;
               const price = entry.saleInfo?.listPrice?.amount;
               const averageRating = book.averageRating;
-              console.log(entry);
 
               return (
                 <>

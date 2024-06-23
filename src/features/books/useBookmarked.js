@@ -1,8 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postBookmarked } from "../../services/apiBooks";
 import { useUser } from "../authentication/useUser.js";
-// import { useFavorite } from "./useFavorite.js";
-// import { addFavorites } from "../../services/addFavorites.js";
 
 function flattenArray(arr) {
   return arr.reduce(

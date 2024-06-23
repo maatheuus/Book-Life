@@ -2,9 +2,9 @@ import { lazy, Suspense } from "react";
 import { useBook } from "../features/books/useBook";
 
 import Empty from "./Empty";
-import Spinner from "./Spinner";
 import { LuLibrary } from "react-icons/lu";
 
+const Spinner = lazy(() => import("./Spinner"));
 const Pagination = lazy(() => import("./Pagination"));
 const BookCard = lazy(() => import("../features/books/BookCard"));
 const BookPlaceholderCard = lazy(() =>
@@ -63,7 +63,7 @@ function Main() {
           })}
       </ul>
       <Suspense>
-        {books !== undefined && <Pagination totalResults={books?.totalItems} />}
+        {books !== undefined && <Pagination totalResults={totalItems} />}
       </Suspense>
     </div>
   );

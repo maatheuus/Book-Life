@@ -3,7 +3,6 @@ import { useBook } from "./useBook";
 
 import { HiHeart, HiOutlineHeart } from "react-icons/hi2";
 import { useUser } from "../../features/authentication/useUser";
-import { useBookmarked } from "../../features/books/useBookmarked";
 import { addFavorites } from "../../services/addFavorites";
 
 import SpinnerMini from "../../components/SpinnerMini";
@@ -14,7 +13,6 @@ import { useLocation } from "react-router-dom";
 function BookmarkButton({ id, children }) {
   const navigate = useNavigate();
   const { isAuthenticated } = useUser();
-  // const { bookmarked, isSaving } = useBookmarked();
   const { favoriteBooks, bookmarked, isSaving } = useFavorite();
   const { books: data } = useBook();
   const { pathname } = useLocation();

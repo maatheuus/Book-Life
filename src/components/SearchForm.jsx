@@ -10,6 +10,7 @@ function SearchForm({ className, children }) {
   function handleSearch(e) {
     e.preventDefault();
     searchBooks({ query: searchBook.current.value });
+    searchBook.current.value = "";
   }
 
   return (
