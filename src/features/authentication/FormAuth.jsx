@@ -4,9 +4,14 @@ import ButtonIcon from "../../components/ButtonIcon";
 
 function FormAuth({ register, getValues, errors, name, confirmPassword }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   function handleShowPassword() {
     setShowPassword(!showPassword);
+  }
+
+  function handleShowConfirmPassword() {
+    setShowConfirmPassword(!showConfirmPassword);
   }
 
   return (
@@ -48,7 +53,6 @@ function FormAuth({ register, getValues, errors, name, confirmPassword }) {
           autoComplete="email"
           id="email"
           name="email"
-          value="horir@mailinator.com"
           className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
           {...register("email", {
             required: {
@@ -92,7 +96,6 @@ function FormAuth({ register, getValues, errors, name, confirmPassword }) {
           type={showPassword ? "text" : "password"}
           id="password"
           name="password"
-          value="Pa$$w0rd!"
           className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
           {...register("password", {
             required: {
@@ -117,9 +120,9 @@ function FormAuth({ register, getValues, errors, name, confirmPassword }) {
                 variation="primary"
                 type="button"
                 className="hover:text-primary"
-                onClick={handleShowPassword}
+                onClick={handleShowConfirmPassword}
               >
-                {showPassword ? (
+                {showConfirmPassword ? (
                   <HiOutlineEyeSlash className="w-6 h-6" />
                 ) : (
                   <HiOutlineEye className="w-6 h-6" />
@@ -129,7 +132,7 @@ function FormAuth({ register, getValues, errors, name, confirmPassword }) {
           </label>
 
           <input
-            type={showPassword ? "text" : "password"}
+            type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
             name="confirmPassword"
             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-1 focus:ring-primary"

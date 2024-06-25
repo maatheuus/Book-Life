@@ -19,10 +19,10 @@ const createSendToken = (user, role, statusCode, req, res) => {
 
   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
-  res.cookie("jwt", token);
+  res.cookie("jwt", token, cookieOptions);
 
+  // Remove password from output
   user.password = undefined;
-  user.__v = undefined;
 
   res.status(statusCode).json({
     status: "success",
@@ -36,19 +36,13 @@ const createSendToken = (user, role, statusCode, req, res) => {
 
 export const signup = async (req, res, next) => {
   try {
-    const newUser = await User.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      confirmPassword: req.body.confirmPassword,
-    });
-
-    createSendToken(newUser, 200, req, res);
+    const newUser = await User.create(req.body);
+    createSendToken(newUser, "authenticated", 201, req, res);
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     res.status(400).json({
       status: "fail",
-      message: error,
+      message: error.message,
     });
   }
 };
@@ -79,10 +73,10 @@ export const login = async (req, res, next) => {
     // 3) If everything ok, send token to user
     createSendToken(user, "authenticated", 200, req, res);
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     res.status(400).json({
       status: "fail",
-      message: error,
+      message: error.message,
     });
   }
 };
@@ -111,10 +105,10 @@ export const findUser = async (req, res, next) => {
       user,
     });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     res.status(400).json({
       status: "fail",
-      message: error,
+      message: error.message,
     });
   }
 };

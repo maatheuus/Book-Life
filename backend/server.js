@@ -11,7 +11,8 @@ async function connection() {
   try {
     await connect(DB);
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
+    throw new Error(error.message);
   }
 }
 

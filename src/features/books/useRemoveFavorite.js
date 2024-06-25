@@ -49,7 +49,6 @@ export function useRemoveFavorite() {
       toast.error("Something went wrong, try again later please!");
     },
   });
-  console.log(isDeleting);
 
   return { removeFavorite, isDeleting };
 }

@@ -1,6 +1,7 @@
 import { ImStarFull, ImStarHalf } from "react-icons/im";
 
 function StarIcons({ rating }) {
+  const idHalfStar = Math.random() * 1000000000;
   if (rating === 0 || rating === undefined) {
     return <span className="text-gray-primary text-base">No reviews</span>;
   }
@@ -14,7 +15,9 @@ function StarIcons({ rating }) {
   }
 
   if (halfStart) {
-    stars.push(<ImStarHalf className="w-4 h-4 text-primary" />);
+    stars.push(
+      <ImStarHalf className="w-4 h-4 text-primary" key={idHalfStar} />
+    );
   }
 
   return stars;

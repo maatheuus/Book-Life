@@ -49,7 +49,7 @@ export const setFavoriteBooks = async (req, res, next) => {
       data,
     });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     res.status(400).json({
       status: "fail",
       message: error,

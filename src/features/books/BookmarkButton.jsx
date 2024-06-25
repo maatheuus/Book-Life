@@ -7,8 +7,10 @@ import { HiHeart, HiOutlineHeart } from "react-icons/hi2";
 
 import SpinnerMini from "../../components/SpinnerMini";
 import ButtonIcon from "../../components/ButtonIcon";
+import { useNavigate } from "react-router-dom";
 
-function BookmarkButton({ id, checkData, navigate, favoriteBooks }) {
+function BookmarkButton({ id, checkData, favoriteBooks, children }) {
+  const navigate = useNavigate();
   const { isAuthenticated } = useUser();
   const { books: data } = useBook();
   const { removeFavorite, isDeleting } = useRemoveFavorite();
@@ -50,7 +52,7 @@ function BookmarkButton({ id, checkData, navigate, favoriteBooks }) {
           checkData ? handleRemoveFavorite() : handleBookmark();
         }}
         variation="primary"
-        className="ml-auto  rounded-full p-2 cursor-pointer text-gray-primary hover:animate-pulse"
+        className="ml-auto rounded-full gap-2 p-2 cursor-pointer text-gray-primary hover:animate-pulse"
       >
         {filteredBook?.isBookmarked ? (
           isSaving || isDeleting ? (
@@ -63,6 +65,7 @@ function BookmarkButton({ id, checkData, navigate, favoriteBooks }) {
         ) : (
           <HiOutlineHeart className="hover:text-primary" />
         )}
+        {children}
       </ButtonIcon>
     </div>
   );

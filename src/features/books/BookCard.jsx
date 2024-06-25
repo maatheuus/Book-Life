@@ -17,9 +17,9 @@ function BookCard({
   linkTo,
 }) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const checkData = pathname.includes("favorite");
   const { favoriteBooks } = useFavorite();
+  const { pathname, search } = useLocation();
+  const checkData = pathname.includes("favorite");
 
   return (
     <li className="relative max-w-sm min-w-[184px] bg-white shadow-sm rounded-xl px-4 py-3 transition duration-300 hover:scale-105 hover:shadow-md">
@@ -27,13 +27,12 @@ function BookCard({
         <BookmarkButton
           id={id}
           checkData={checkData}
-          navigate={navigate}
           favoriteBooks={favoriteBooks}
         />
         <div>
           <Button
             className="block w-40 overflow-hidden object-fill"
-            onClick={() => navigate(`book/${id}`, { replace: true })}
+            onClick={() => navigate(`/book/${id}${search}`, { replace: true })}
           >
             <img
               className="h-40 shadow-img rounded-sm w-full overflow-x-hidden object-cover rotate-6 scale-75"

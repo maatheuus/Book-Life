@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
 import { useBook } from "../features/books/useBook";
+import { LuLibrary } from "react-icons/lu";
 
 import Empty from "./Empty";
-import { LuLibrary } from "react-icons/lu";
 
 const Spinner = lazy(() => import("./Spinner"));
 const Pagination = lazy(() => import("./Pagination"));

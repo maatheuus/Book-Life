@@ -2,7 +2,6 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 import ButtonIcon from "./ButtonIcon";
 import Button from "./Button";
-import { useEffect } from "react";
 
 const PAGE_SIZE = 10;
 function Pagination({ totalResults }) {

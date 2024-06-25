@@ -41,20 +41,7 @@ export const logout = async () => {
   try {
     return await axios.get(`${URL}/logout`);
   } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
-  }
-};
-
-export const getCurrentUser = async (data) => {
-  try {
-    console.log("getcurrentuser", data);
-    // const res = await axios.get(`${URL}/user`, data);
-    // if (res.data.status !== "success" || res.status !== 200)
-    //   throw new Error("Something went wrong, try again later!");
-    // return await res.data;
-  } catch (error) {
-    // console.error("Erro ao encontrar o usuário:", error);
+    // console.log(error);
     throw new Error(error.message);
   }
 };
