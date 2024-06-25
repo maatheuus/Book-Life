@@ -5,11 +5,10 @@ import ButtonIcon from "./ButtonIcon";
 const Modal = lazy(() => import("./Modal"));
 
 function Navbar() {
-  const [showModal, setShowModal] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  function handleShowModal() {
-    setShowModal(!showModal);
-  }
+  const close = setModalIsOpen;
+  const open = () => setModalIsOpen(true);
 
   return (
     <nav className="flex flex-col justify-between h-4/5">
@@ -20,7 +19,7 @@ function Navbar() {
           </ButtonIcon>
         </li>
         <li>
-          <ButtonIcon variation="primary" onClick={handleShowModal}>
+          <ButtonIcon variation="primary" onClick={open}>
             <RiSearch2Line className="w-6 h-6" /> <span>Search</span>
           </ButtonIcon>
         </li>
@@ -30,9 +29,7 @@ function Navbar() {
           </ButtonIcon>
         </li>
       </ul>
-      <Suspense>
-        <Modal showModal={showModal} onClick={handleShowModal} />
-      </Suspense>
+      <Suspense>{modalIsOpen && <Modal closeModal={close} />}</Suspense>
     </nav>
   );
 }

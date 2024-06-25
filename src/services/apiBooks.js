@@ -62,6 +62,23 @@ export async function postBookmarked(data) {
   }
 }
 
+export const removeBookmarked = async (data) => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_URL}/bookmarked`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    throw new Error("Something went wrong, try again later!");
+  }
+};
+
 export async function getBookmarked(params) {
   try {
     const res = await axios.get(

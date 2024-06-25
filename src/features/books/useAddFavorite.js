@@ -1,24 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useUser } from "../authentication/useUser";
 import { postBookmarked } from "../../services/apiBooks";
-import { useUser } from "../authentication/useUser.js";
+import { flattenArray, removeDuplicates } from "../../services/utils";
+import toast from "react-hot-toast";
 
-function flattenArray(arr) {
-  return arr.reduce(
-    (acc, val) =>
-      Array.isArray(val) ? acc.concat(flattenArray(val)) : acc.concat(val),
-    []
-  );
-}
-
-function removeDuplicates(arr) {
-  return [...new Set(arr)];
-}
-
-export function useBookmarked() {
-  const { user } = useUser();
+export function useAddFavorite() {
   const queryClient = useQueryClient();
+  const { user } = useUser();
 
   const { mutate: bookmarked, isPending: isSaving } = useMutation({
+    mutationKey: ["addFavorite"],
+    mutationFn: () => {
+      const queryData = queryClient.getQueryData(["favorites-books"]);
+      return postBookmarked({
+        user: user,
+        favoriteBooks: queryData,
+        totalBooks: queryData.length,
+      });
+    },
     onMutate(arrBooks, err) {
       if (err) throw new Error("Something went wrong", err);
 
@@ -31,16 +30,11 @@ export function useBookmarked() {
           (item) => item.isBookmarked === true
         );
 
-        const data = {
-          user: user.user,
-          favoriteBooks: filterArray,
-          totalBooks: filterArray.length,
-        };
-        postBookmarked(data);
-
         return filterArray;
       });
     },
+    onSuccess: () => toast.success("Bookmarked!"),
+    onError: () => toast.error("Something went wrong, try again later please!"),
   });
 
   return { bookmarked, isSaving };

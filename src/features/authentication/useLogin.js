@@ -9,7 +9,6 @@ export function useLogin() {
   const { isPending: isLoading, mutate: login } = useMutation({
     mutationFn: (data) => loginApi(data),
     onSuccess: (user) => {
-      // const dataUser = { user };
       queryClient.setQueryData(["user"], () => user);
       navigate("/");
     },
@@ -20,4 +19,3 @@ export function useLogin() {
 
   return { isLoading, login };
 }
-//Pa$$w0rd!

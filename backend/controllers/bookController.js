@@ -6,7 +6,6 @@ export const setFavoriteBooks = async (req, res, next) => {
     const { favoriteBooks, totalBooks } = req.body;
     const { email } = req.body.user;
 
-    // console.log(req.body);
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -65,16 +64,10 @@ export const getFavoriteBooks = async (req, res, next) => {
     const user = await BookMark.find({
       "user.email": email,
     });
-    // console.log(user);
-    // if (user.length === 0) {
-    //   return res.status(404).json({
-    //     status: "fail",
-    //     message: "Nothing found",
-    //   });
-    // }
+
+    if (user.length === 0) return;
 
     const data = user[0].favoriteBooks;
-    // console.log("DATA", data);
     res.status(200).json({
       status: "success",
       data,

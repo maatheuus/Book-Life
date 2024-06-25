@@ -55,6 +55,7 @@ function FavoriteBooks() {
                 image={smallImage}
                 price={price}
                 linkTo={entry.saleInfo.buyLink}
+                isPageFavorite
               />
             );
           })}

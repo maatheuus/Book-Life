@@ -27,7 +27,6 @@ function SearchForm({ className, children }) {
             className="block w-full py-2 ps-10 text-base text-gray-primary border border-gray-primary/40 rounded-lg focus:ring-gray-400 outline-none focus:border-gray-400 "
             id="default-search"
             type="text"
-            // value="flowers"
             ref={searchBook}
           />
         </div>

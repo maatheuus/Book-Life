@@ -9,8 +9,7 @@ import { useUser } from "../features/authentication/useUser";
 import { logout } from "../services/apiAuth";
 
 function Dropdown() {
-  const { user, isAuthenticated } = useUser();
-  const name = user?.data?.user?.name || "";
+  const { name, isAuthenticated } = useUser();
 
   return (
     <div className="relative group col-start-6 justify-self-end">

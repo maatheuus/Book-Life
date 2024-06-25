@@ -42,6 +42,7 @@ export const logout = async () => {
     return await axios.get(`${URL}/logout`);
   } catch (error) {
     console.log(error);
+    throw new Error(error.message);
   }
 };
 
