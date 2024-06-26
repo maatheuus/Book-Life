@@ -10,6 +10,7 @@ connection();
 async function connection() {
   try {
     await connect(DB);
+    console.log("MongoDB connected");
   } catch (error) {
     // console.log(error.message);
     throw new Error(error.message);
