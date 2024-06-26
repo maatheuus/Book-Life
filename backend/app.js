@@ -8,7 +8,6 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
-import xss from "xss-clean";
 import { router as routerUser } from "./routes/userRoutes.js";
 import { router as routerBooks } from "./routes/bookRoutes.js";
 const app = express();
@@ -32,7 +31,6 @@ app.use(cookieParser());
 app.use(mongoSanitize());
 
 // Data sanitization against XSS
-app.use(xss());
 
 app.use(compression());
 

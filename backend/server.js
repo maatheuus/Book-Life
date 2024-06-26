@@ -16,6 +16,7 @@ async function connection() {
   }
 }
 
-app.listen(process.env.PORT, () => {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log("listening on port " + process.env.PORT);
 });
