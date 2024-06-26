@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "start": "node ./backend/server.js",
-    "start:prod": "SET NODE_DEV=production&&nodemon ./backend/server.js"
+    "start:prod": "SET NODE_DEV=production ./backend/server.js"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.39.0",
