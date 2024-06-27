@@ -25,9 +25,9 @@ function FavoriteBooks() {
       <Suspense fallback={<Spinner />}>
         {favoriteBooks.length === 0 ? (
           <Empty
-            icon={<HiHeart />}
+            icon={<HiHeart className="w-16 h-6" />}
             title="Bookmark some of your favorites books..."
-            className="text-lg"
+            className="text-base px-8"
           />
         ) : (
           <Heading title="Favorites">
