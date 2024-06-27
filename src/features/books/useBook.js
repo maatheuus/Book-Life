@@ -19,7 +19,7 @@ export function useBook() {
   // PAGINATION
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     enabled: !!query,
     queryKey: ["books", page, filter, sortBy],
     queryFn: () => searchBook(query, page, filter, sortBy),
@@ -32,5 +32,5 @@ export function useBook() {
   const books = data?.data;
   const totalItems = data?.totalItems;
 
-  return { isLoading, isFetching, books, totalItems, setQuery };
+  return { isLoading, books, totalItems, setQuery };
 }
