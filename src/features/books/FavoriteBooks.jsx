@@ -27,6 +27,7 @@ function FavoriteBooks() {
           <Empty
             icon={<HiHeart />}
             title="Bookmark some of your favorites books..."
+            className="text-lg"
           />
         ) : (
           <Heading title="Favorites">

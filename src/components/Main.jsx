@@ -17,7 +17,7 @@ function Main() {
 
   if (isLoading) {
     return (
-      <div className="h-auto flex flex-wrap gap-4">
+      <div className="h-auto flex flex-wrap gap-4 justify-evenly">
         <Suspense>
           <BookPlaceholderCard />
         </Suspense>
@@ -29,7 +29,11 @@ function Main() {
     <div className="rounded-xl h-auto flex flex-wrap gap-4">
       <Suspense fallback={<Spinner />}>
         {books === undefined ? (
-          <Empty icon={<LuLibrary />} title="Search for some books..." />
+          <Empty
+            icon={<LuLibrary />}
+            title="Search for some books..."
+            className="text-lg"
+          />
         ) : (
           <Heading title="About" filters>
             <span className="text-gray-primary text-base">
@@ -40,7 +44,7 @@ function Main() {
       </Suspense>
       <ul
         key={Math.random() * 2}
-        className="list-none mx-auto grid grid-cols-2 flex-wrap gap-x-3 gap-y-3 md:gap-x-3 xl:grid-cols-5 min-[830px]:grid-cols-4 sm:grid-cols-3"
+        className="list-none grid grid-cols-1 gap-3 xl:grid-cols-5 md:gap-x-3 min-[870px]:grid-cols-4 min-[590px]:grid-cols-3 min-[450px]:grid-cols-2 mx-auto"
       >
         {books !== undefined &&
           books.map((entry) => {

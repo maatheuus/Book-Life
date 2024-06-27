@@ -51,9 +51,9 @@ function BookDetail() {
             const averageRating = book.averageRating;
 
             return (
-              <div className="flex" key={index}>
+              <div key={index} className="flex flex-col min-[840px]:flex-row">
                 <img
-                  className="shadow-sm w-full min-w-64 max-w-36 rounded-sm overflow-hidden object-fill"
+                  className="shadow-sm flex-1 rounded-sm overflow-hidden object-fill p-24 max-[500px]:p-10 min-[840px]:p-0 min-[840px]:min-w-64 min-[840px]:max-w-36"
                   src={imgCover}
                   alt="image of the book selected"
                 />
@@ -102,16 +102,17 @@ function BookDetail() {
                       </p>
                     )}
                   </div>
-                  <div className="mt-3 mb-2 flex items-center gap-6">
-                    <div className="flex">
+                  <div className="mt-3 mb-2 flex flex-1 items-center gap-3 flex-col md:gap-6 min-[340px]:flex-row">
+                    <div className="flex border min-w-fit">
                       <BookmarkButton id={entry.id}>
                         Add to favorites
                       </BookmarkButton>
                     </div>
-                    <div className="flex">
+                    <div className="flex border min-w-fit">
                       {price !== undefined && (
                         <ButtonIcon
                           variation="primary"
+                          className="p-2"
                           to={entry.saleInfo.buyLink}
                           target="_blank"
                         >

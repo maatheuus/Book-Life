@@ -12,7 +12,7 @@ function Dropdown() {
   const { name, isAuthenticated } = useUser();
 
   return (
-    <div className="relative group col-start-6 justify-self-end">
+    <div className="relative mx-auto sm:mx-0 group col-start-6 justify-self-end">
       <ButtonIcon
         variation="secondary"
         className="w-36 gap-3 flex items-center"
