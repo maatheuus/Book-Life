@@ -13,9 +13,9 @@ const BookPlaceholderCard = lazy(() =>
 const Heading = lazy(() => import("./Heading"));
 
 function Main() {
-  const { books, isLoading, totalItems } = useBook();
+  const { books, totalItems, isLoading, isFetching } = useBook();
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <div className="h-auto flex flex-wrap gap-4 justify-evenly">
         <Suspense>
