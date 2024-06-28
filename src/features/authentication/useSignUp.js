@@ -15,7 +15,7 @@ export function useSignUp() {
       navigate("/");
     },
     onError: (err) => {
-      // console.log(err);
+      console.log(err);
       toast.error("An error occurred while creating the account");
     },
   });

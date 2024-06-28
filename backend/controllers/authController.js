@@ -36,7 +36,9 @@ const createSendToken = (user, role, statusCode, req, res) => {
 
 export const signup = async (req, res, next) => {
   try {
+    console.log("req", req.body);
     const newUser = await User.create(req.body);
+    console.log("newUser", newUser);
     createSendToken(newUser, "authenticated", 201, req, res);
   } catch (error) {
     // console.log(error.message);

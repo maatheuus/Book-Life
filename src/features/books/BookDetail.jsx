@@ -1,22 +1,31 @@
 import { lazy, Suspense } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { useBook } from "./useBook";
+import { useFavorite } from "./useFavorite";
 import {
   HiOutlineShoppingCart,
   HiArrowTopRightOnSquare,
 } from "react-icons/hi2";
 import { HiArrowSmLeft } from "react-icons/hi";
-import { useBook } from "./useBook";
+
 import image from "../../assets/images/image-not-found.jpeg";
+import BookmarkButton from "./BookmarkButton";
 import ButtonIcon from "../../components/ButtonIcon";
 import StarIcons from "../../components/StarIcons ";
-import BookmarkButton from "./BookmarkButton";
 import Empty from "../../components/Empty";
 const BookPlaceholder = lazy(() => import("./BookPlaceholder"));
 
 function BookDetail() {
-  const { books, isLoading } = useBook();
+  const { books: data, isLoading } = useBook();
   const { bookId } = useParams();
-  const curBook = books?.filter((book) => book.id === bookId);
+  const { favoriteBooks } = useFavorite();
+  const { pathname } = useLocation();
+  const checkData = pathname.includes("favorite");
+
+  let books = [];
+  checkData ? (books = favoriteBooks) : (books = data);
+
+  const curBook = favoriteBooks?.filter((book) => book.id === bookId);
 
   if (isLoading) {
     return (
@@ -25,7 +34,7 @@ function BookDetail() {
       </Suspense>
     );
   }
-  if (curBook.length === 0) {
+  if (curBook === undefined) {
     return (
       <Empty title="No details could be found about the book, select another on please! 🙁" />
     );
@@ -35,7 +44,7 @@ function BookDetail() {
     <>
       <div className="bg-primary rounded-full w-6 h-6 my-3">
         <ButtonIcon
-          to=".."
+          to="../"
           variation="primary"
           className="text-stone-200 hover:text-white transition"
         >

@@ -17,10 +17,16 @@ function BookmarkButton({ id, checkData, favoriteBooks, children }) {
   const { bookmarked, isSaving } = useAddFavorite();
 
   let books = [];
+  let filteredBook = [];
 
-  checkData ? (books = favoriteBooks) : (books = data);
+  if (checkData) {
+    books = favoriteBooks;
+    filteredBook = books?.find((book) => book.id === id);
+  } else {
+    books = data;
+    filteredBook = books?.find((book) => book.id === id);
+  }
 
-  const filteredBook = books.find((book) => book.id === id);
   function handleBookmark() {
     if (!isAuthenticated) {
       navigate("/login");

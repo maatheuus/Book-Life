@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config({ path: "./config.env" });
 
+import cors from "cors";
 import express from "express";
 import morgan from "morgan";
-import cors from "cors";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import helmet from "helmet";
