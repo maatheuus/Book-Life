@@ -8,12 +8,12 @@ import {
 } from "react-icons/hi2";
 import { HiArrowSmLeft } from "react-icons/hi";
 
-import image from "../../assets/images/image-not-found.jpeg";
 import BookmarkButton from "./BookmarkButton";
 import ButtonIcon from "../../components/ButtonIcon";
 import StarIcons from "../../components/StarIcons ";
-import Empty from "../../components/Empty";
 const BookPlaceholder = lazy(() => import("./BookPlaceholder"));
+const image = lazy(() => import("../../assets/images/image-not-found.jpeg"));
+const Empty = lazy(() => import("../../components/Empty"));
 
 function BookDetail() {
   const { books: data, isLoading } = useBook();
@@ -36,7 +36,9 @@ function BookDetail() {
   }
   if (curBook === undefined) {
     return (
-      <Empty title="No details could be found about the book, select another on please! 🙁" />
+      <Suspense>
+        <Empty title="No details could be found about the book, select another on please! 🙁" />
+      </Suspense>
     );
   }
 
