@@ -19,13 +19,8 @@ function BookmarkButton({ id, checkData, favoriteBooks, children }) {
   let books = [];
   let filteredBook = [];
 
-  if (checkData) {
-    books = favoriteBooks;
-    filteredBook = books?.find((book) => book.id === id);
-  } else {
-    books = data;
-    filteredBook = books?.find((book) => book.id === id);
-  }
+  checkData ? (books = favoriteBooks) : (books = data);
+  filteredBook = books?.find((book) => book.id === id);
 
   function handleBookmark() {
     if (!isAuthenticated) {
