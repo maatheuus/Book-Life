@@ -9,7 +9,7 @@ const Main = lazy(() => import("../components/Main"));
 function HomePage() {
   const { pathname } = useLocation();
   return (
-    <div className="grid grid-rows-10 grid-cols-7 gap-x-6 h-screen bg-gray-200/75 p-6 lg:grid-cols-6 lg:grid-rows-5">
+    <div className="grid grid-rows-10 grid-cols-7 gap-x-6 h-screen p-6 lg:grid-cols-6 lg:grid-rows-5">
       <Sidebar />
 
       <main className="col-span-8 row-start-2 row-end-10 overflow-y-scroll sm:row-span-full">

@@ -26,14 +26,16 @@ function Main() {
   }
 
   return (
-    <div className="rounded-xl h-auto flex flex-wrap gap-4">
+    <div className="rounded-xl">
       <Suspense fallback={<Spinner />}>
         {books === undefined ? (
-          <Empty
-            icon={<LuLibrary />}
-            title="Search for some books..."
-            className="text-lg"
-          />
+          <div className="h-auto flex flex-wrap gap-4">
+            <Empty
+              icon={<LuLibrary />}
+              title="Search for some books..."
+              className="text-lg"
+            />
+          </div>
         ) : (
           <Heading title="About" filters>
             <span className="text-gray-primary text-base">
@@ -42,33 +44,35 @@ function Main() {
           </Heading>
         )}
       </Suspense>
-      <ul
-        key={Math.random() * 2}
-        className="list-none grid grid-cols-1 gap-3 xl:grid-cols-5 md:gap-x-3 min-[870px]:grid-cols-4 min-[590px]:grid-cols-3 min-[450px]:grid-cols-2 mx-auto"
-      >
-        {books !== undefined &&
-          books.map((entry) => {
-            const book = entry.volumeInfo;
-            const smallImage = book.imageLinks?.smallThumbnail;
-            const price = entry.saleInfo?.listPrice?.amount;
-            const averageRating = book.averageRating;
 
-            return (
-              <BookCard
-                key={entry.id}
-                id={entry.id}
-                averageRating={averageRating}
-                title={book.title}
-                image={smallImage}
-                price={price}
-                linkTo={entry.saleInfo.buyLink}
-              />
-            );
-          })}
-      </ul>
-      <Suspense>
-        {books !== undefined && <Pagination totalResults={totalItems} />}
-      </Suspense>
+      <div className="flex flex-col gap-y-4">
+        <Suspense>
+          {books !== undefined && <Pagination totalResults={totalItems} />}
+        </Suspense>
+        <ul
+          key={Math.random() * 2}
+          className="list-none grid grid-cols-1 gap-3 xl:grid-cols-5 md:gap-x-3 min-[870px]:grid-cols-4 min-[590px]:grid-cols-3 min-[450px]:grid-cols-2 mx-auto"
+        >
+          {books !== undefined &&
+            books.map((entry) => {
+              const book = entry.volumeInfo;
+              const smallImage = book.imageLinks?.smallThumbnail;
+              const price = entry.saleInfo?.listPrice?.amount;
+              const averageRating = book.averageRating;
+              return (
+                <BookCard
+                  key={entry.id}
+                  id={entry.id}
+                  averageRating={averageRating}
+                  title={book.title}
+                  image={smallImage}
+                  price={price}
+                  linkTo={entry.saleInfo.buyLink}
+                />
+              );
+            })}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -29,23 +29,22 @@ function BookCard({
           checkData={checkData}
           favoriteBooks={favoriteBooks}
         />
-        <div>
-          <Button
-            className="block w-40 overflow-hidden object-fill"
-            onClick={() => navigate(`/book/${id}${search}`, { replace: true })}
-          >
-            <img
-              className="h-40 shadow-img rounded-sm w-full overflow-x-hidden object-cover rotate-6 scale-75"
-              src={image}
-            />
-          </Button>
-        </div>
+        <Button
+          className="block w-40 overflow-hidden object-fill"
+          onClick={() => navigate(`/book/${id}${search}`, { replace: true })}
+        >
+          <img
+            className="h-40 shadow-img rounded-sm w-full overflow-x-hidden object-cover rotate-6 scale-75"
+            src={image}
+          />
+        </Button>
       </div>
       <div className="flex items-center justify-center mt-2">
         <div className="flex items-center space-x-1 rtl:space-x-reverse">
           <StarIcons key={id} rating={averageRating} />
         </div>
       </div>
+
       <div className="mt-3 mb-6 text-left">
         <p className="w-40 text-xs font-extrabold text-stone-950 hyphens-auto">
           {title}
