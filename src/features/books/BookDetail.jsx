@@ -25,7 +25,7 @@ function BookDetail() {
   let books = [];
   checkData ? (books = favoriteBooks) : (books = data);
 
-  const curBook = favoriteBooks?.filter((book) => book.id === bookId);
+  const curBook = books?.filter((book) => book.id === bookId);
 
   if (isLoading) {
     return (
